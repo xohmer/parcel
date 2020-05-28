@@ -17,7 +17,7 @@ import {DEFAULT_OPTIONS} from './utils';
 
 describe('loadParcelConfig', () => {
   describe('validatePackageName', () => {
-    it('should error on an invalid official package', () => {
+    test('should error on an invalid official package', () => {
       assert.throws(() => {
         validatePackageName('@parcel/foo-bar', 'transform', 'transformers');
       }, /Official parcel transform packages must be named according to "@parcel\/transform-{name}"/);
@@ -27,11 +27,11 @@ describe('loadParcelConfig', () => {
       }, /Official parcel transform packages must be named according to "@parcel\/transform-{name}"/);
     });
 
-    it('should succeed on a valid official package', () => {
+    test('should succeed on a valid official package', () => {
       validatePackageName('@parcel/transform-bar', 'transform', 'transformers');
     });
 
-    it('should error on an invalid community package', () => {
+    test('should error on an invalid community package', () => {
       assert.throws(() => {
         validatePackageName('foo-bar', 'transform', 'transformers');
       }, /Parcel transform packages must be named according to "parcel-transform-{name}"/);
@@ -45,11 +45,11 @@ describe('loadParcelConfig', () => {
       }, /Parcel transform packages must be named according to "parcel-transform-{name}"/);
     });
 
-    it('should succeed on a valid community package', () => {
+    test('should succeed on a valid community package', () => {
       validatePackageName('parcel-transform-bar', 'transform', 'transformers');
     });
 
-    it('should error on an invalid scoped package', () => {
+    test('should error on an invalid scoped package', () => {
       assert.throws(() => {
         validatePackageName('@test/foo-bar', 'transform', 'transformers');
       }, /Scoped parcel transform packages must be named according to "@test\/parcel-transform\[-{name}\]"/);
@@ -63,7 +63,7 @@ describe('loadParcelConfig', () => {
       }, /Scoped parcel transform packages must be named according to "@test\/parcel-transform\[-{name}\]"/);
     });
 
-    it('should succeed on a valid scoped package', () => {
+    test('should succeed on a valid scoped package', () => {
       validatePackageName(
         '@test/parcel-transform-bar',
         'transform',
@@ -79,7 +79,7 @@ describe('loadParcelConfig', () => {
   });
 
   describe('validateConfigFile', () => {
-    it('should throw on invalid config', () => {
+    test('should throw on invalid config', () => {
       assert.throws(() => {
         validateConfigFile(
           {
@@ -94,7 +94,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should require pipeline to be an array', () => {
+    test('should require pipeline to be an array', () => {
       assert.throws(() => {
         validateConfigFile(
           // $FlowFixMe Added in Flow 0.121.0 upgrade in #4381
@@ -107,7 +107,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should require pipeline elements to be strings', () => {
+    test('should require pipeline elements to be strings', () => {
       assert.throws(() => {
         validateConfigFile(
           {
@@ -120,7 +120,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should require package names to be valid', () => {
+    test('should require package names to be valid', () => {
       assert.throws(() => {
         validateConfigFile(
           {
@@ -132,7 +132,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should succeed with an array of valid package names', () => {
+    test('should succeed with an array of valid package names', () => {
       validateConfigFile(
         {
           filePath: '.parcelrc',
@@ -142,7 +142,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should support spread elements', () => {
+    test('should support spread elements', () => {
       validateConfigFile(
         {
           filePath: '.parcelrc',
@@ -152,7 +152,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should require glob map to be an object', () => {
+    test('should require glob map to be an object', () => {
       assert.throws(() => {
         validateConfigFile(
           {
@@ -165,7 +165,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should trigger the validator function for each key', () => {
+    test('should trigger the validator function for each key', () => {
       assert.throws(() => {
         validateConfigFile(
           {
@@ -180,7 +180,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should require extends to be a string or array of strings', () => {
+    test('should require extends to be a string or array of strings', () => {
       assert.throws(() => {
         validateConfigFile(
           // $FlowFixMe Added in Flow 0.121.0 upgrade in #4381
@@ -204,7 +204,7 @@ describe('loadParcelConfig', () => {
       });
     });
 
-    it('should support relative paths', () => {
+    test('should support relative paths', () => {
       validateConfigFile(
         {
           filePath: '.parcelrc',
@@ -222,7 +222,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should validate package names', () => {
+    test('should validate package names', () => {
       assert.throws(() => {
         validateConfigFile(
           {
@@ -260,7 +260,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should succeed on valid config', () => {
+    test('should succeed on valid config', () => {
       validateConfigFile(
         {
           filePath: '.parcelrc',
@@ -273,7 +273,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should throw error on empty config file', () => {
+    test('should throw error on empty config file', () => {
       assert.throws(() => {
         validateConfigFile({}, '.parcelrc');
       }, /.parcelrc can't be empty/);
@@ -281,11 +281,11 @@ describe('loadParcelConfig', () => {
   });
 
   describe('mergePipelines', () => {
-    it('should return an empty array if base and extension are null', () => {
+    test('should return an empty array if base and extension are null', () => {
       assert.deepEqual(mergePipelines(null, null), []);
     });
 
-    it('should return base if extension is null', () => {
+    test('should return base if extension is null', () => {
       assert.deepEqual(
         mergePipelines(
           [
@@ -305,7 +305,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should return extension if base is null', () => {
+    test('should return extension if base is null', () => {
       assert.deepEqual(
         mergePipelines(null, [
           {
@@ -322,7 +322,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should return extension if there are no spread elements', () => {
+    test('should return extension if there are no spread elements', () => {
       assert.deepEqual(
         mergePipelines(
           [
@@ -347,7 +347,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should return merge base into extension if there are spread elements', () => {
+    test('should return merge base into extension if there are spread elements', () => {
       assert.deepEqual(
         mergePipelines(
           [
@@ -385,7 +385,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should throw if more than one spread element is in a pipeline', () => {
+    test('should throw if more than one spread element is in a pipeline', () => {
       assert.throws(() => {
         mergePipelines(
           [
@@ -412,30 +412,30 @@ describe('loadParcelConfig', () => {
   });
 
   describe('mergeMaps', () => {
-    it('should return an empty object if base and extension are null', () => {
+    test('should return an empty object if base and extension are null', () => {
       assert.deepEqual(mergeMaps(null, null), {});
     });
 
-    it('should return base if extension is null', () => {
+    test('should return base if extension is null', () => {
       assert.deepEqual(mergeMaps({'*.js': 'foo'}, null), {
         '*.js': 'foo',
       });
     });
 
-    it('should return extension if base is null', () => {
+    test('should return extension if base is null', () => {
       assert.deepEqual(mergeMaps(null, {'*.js': 'foo'}), {
         '*.js': 'foo',
       });
     });
 
-    it('should merge the objects', () => {
+    test('should merge the objects', () => {
       assert.deepEqual(
         mergeMaps({'*.css': 'css', '*.js': 'base-js'}, {'*.js': 'ext-js'}),
         {'*.js': 'ext-js', '*.css': 'css'},
       );
     });
 
-    it('should ensure that extension properties have a higher precidence than base properties', () => {
+    test('should ensure that extension properties have a higher precidence than base properties', () => {
       assert.deepEqual(
         mergeMaps({'*.{js,jsx}': 'base-js'}, {'*.js': 'ext-js'}),
         {'*.js': 'ext-js', '*.{js,jsx}': 'base-js'},
@@ -446,7 +446,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should call a merger function if provided', () => {
+    test('should call a merger function if provided', () => {
       let merger = (a, b) => [a, b];
       assert.deepEqual(
         mergeMaps({'*.js': 'base-js'}, {'*.js': 'ext-js'}, merger),
@@ -456,7 +456,7 @@ describe('loadParcelConfig', () => {
   });
 
   describe('mergeConfigs', () => {
-    it('should merge configs', () => {
+    test('should merge configs', () => {
       let base = new ParcelConfig(
         {
           filePath: '.parcelrc',
@@ -560,7 +560,7 @@ describe('loadParcelConfig', () => {
   });
 
   describe('resolveExtends', () => {
-    it('should resolve a relative path', async () => {
+    test('should resolve a relative path', async () => {
       let resolved = await resolveExtends(
         '../.parcelrc',
         path.join(__dirname, 'fixtures', 'config', 'subfolder', '.parcelrc'),
@@ -572,7 +572,7 @@ describe('loadParcelConfig', () => {
       );
     });
 
-    it('should resolve a package name', async () => {
+    test('should resolve a package name', async () => {
       let resolved = await resolveExtends(
         '@parcel/config-default',
         path.join(__dirname, 'fixtures', 'config', 'subfolder', '.parcelrc'),
@@ -583,7 +583,7 @@ describe('loadParcelConfig', () => {
   });
 
   describe('readAndProcessConfigChain', () => {
-    it('should load and merge configs', async () => {
+    test('should load and merge configs', async () => {
       let defaultConfigPath = require.resolve('@parcel/config-default');
       let defaultConfig = processConfig({
         ...require('@parcel/config-default'),
@@ -627,7 +627,7 @@ describe('loadParcelConfig', () => {
       assert.deepEqual(config.reporters, defaultConfig.reporters || []);
     });
 
-    it('should emit a codeframe when a malformed .parcelrc was found', async () => {
+    test('should emit a codeframe when a malformed .parcelrc was found', async () => {
       let configFilePath = path.join(
         __dirname,
         'fixtures',
@@ -670,12 +670,12 @@ describe('loadParcelConfig', () => {
   });
 
   describe('resolve', () => {
-    it('should return null if there is no .parcelrc file found', async () => {
+    test('should return null if there is no .parcelrc file found', async () => {
       let resolved = await resolveParcelConfig(DEFAULT_OPTIONS);
       assert.equal(resolved, null);
     });
 
-    it('should resolve a config if a .parcelrc file is found', async () => {
+    test('should resolve a config if a .parcelrc file is found', async () => {
       let resolved = await resolveParcelConfig({
         ...DEFAULT_OPTIONS,
         projectRoot: path.join(__dirname, 'fixtures', 'config', 'subfolder'),

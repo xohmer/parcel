@@ -2,7 +2,7 @@ import assert from 'assert';
 import {bundle, assertBundleTree, run, outputFS} from '@parcel/test-utils';
 
 describe.skip('elm', function() {
-  it('should produce a basic Elm bundle', async function() {
+  test('should produce a basic Elm bundle', async () => {
     let b = await bundle(__dirname + '/integration/elm/index.js');
 
     await assertBundleTree(b, {
@@ -13,7 +13,7 @@ describe.skip('elm', function() {
     let output = await run(b);
     assert.equal(typeof output().Elm.Main.init, 'function');
   });
-  it('should produce a elm bundle with debugger', async function() {
+  test('should produce a elm bundle with debugger', async () => {
     let b = await bundle(__dirname + '/integration/elm/index.js');
 
     await run(b);
@@ -21,7 +21,7 @@ describe.skip('elm', function() {
     assert(js.includes('elm$browser$Debugger'));
   });
 
-  it('should apply elm-hot if HMR is enabled', async function() {
+  test('should apply elm-hot if HMR is enabled', async () => {
     let b = await bundle(__dirname + '/integration/elm/index.js', {
       hmr: true,
     });
@@ -35,7 +35,7 @@ describe.skip('elm', function() {
     assert(js.includes('[elm-hot]'));
   });
 
-  it('should remove debugger in production', async function() {
+  test('should remove debugger in production', async () => {
     let b = await bundle(__dirname + '/integration/elm/index.js', {
       production: true,
     });
@@ -45,7 +45,7 @@ describe.skip('elm', function() {
     assert(!js.includes('elm$browser$Debugger'));
   });
 
-  it('should minify Elm in production mode', async function() {
+  test('should minify Elm in production mode', async () => {
     let b = await bundle(__dirname + '/integration/elm/index.js', {
       production: true,
     });

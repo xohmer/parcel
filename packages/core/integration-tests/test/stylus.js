@@ -8,8 +8,8 @@ import {
   outputFS,
 } from '@parcel/test-utils';
 
-describe('stylus', function() {
-  it('should support requiring stylus files', async function() {
+describe('stylus', () => {
+  test('should support requiring stylus files', async () => {
     let b = await bundle(path.join(__dirname, '/integration/stylus/index.js'));
 
     assertBundles(b, [
@@ -31,7 +31,7 @@ describe('stylus', function() {
     assert(css.includes('.index'));
   });
 
-  it('should support requiring stylus files with dependencies', async function() {
+  test('should support requiring stylus files with dependencies', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/stylus-deps/index.js'),
     );
@@ -60,7 +60,7 @@ describe('stylus', function() {
     assert(css.includes('.foo'));
   });
 
-  it('should support linking to assets with url() from stylus', async function() {
+  test('should support linking to assets with url() from stylus', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/stylus-url/index.js'),
     );
@@ -96,7 +96,7 @@ describe('stylus', function() {
     );
   });
 
-  it('should support transforming stylus with css modules', async function() {
+  test('should support transforming stylus with css modules', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/stylus-postcss/index.js'),
     );
@@ -120,7 +120,7 @@ describe('stylus', function() {
     assert(css.includes('._index_'));
   });
 
-  it('should support requiring stylus files with glob dependencies', async function() {
+  test('should support requiring stylus files with glob dependencies', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/stylus-glob-import/index.js'),
     );

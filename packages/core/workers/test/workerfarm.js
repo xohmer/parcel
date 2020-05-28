@@ -2,10 +2,10 @@ import Logger from '@parcel/logger';
 import assert from 'assert';
 import WorkerFarm from '../';
 
-describe('WorkerFarm', function() {
+describe('WorkerFarm', () => {
   this.timeout(30000);
 
-  it('Should start up workers', async () => {
+  test('Should start up workers', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: false,
       useLocalWorker: false,
@@ -17,7 +17,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should handle 1000 requests without any issue', async () => {
+  test('Should handle 1000 requests without any issue', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: false,
       useLocalWorker: false,
@@ -33,7 +33,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should warm up workers', async () => {
+  test('Should warm up workers', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: true,
@@ -55,7 +55,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should use the local worker', async () => {
+  test('Should use the local worker', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: true,
@@ -68,7 +68,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should be able to use bi-directional communication', async () => {
+  test('Should be able to use bi-directional communication', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: false,
       useLocalWorker: false,
@@ -80,7 +80,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should be able to handle 1000 bi-directional calls', async () => {
+  test('Should be able to handle 1000 bi-directional calls', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: false,
       useLocalWorker: false,
@@ -94,7 +94,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it.skip('Bi-directional call should return masters pid', async () => {
+  test.skip('Bi-directional call should return masters pid', async () => {
     // TODO: this test is only good for processes not threads
     let workerfarm = new WorkerFarm({
       warmWorkers: false,
@@ -110,7 +110,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should handle 10 big concurrent requests without any issue', async () => {
+  test('Should handle 10 big concurrent requests without any issue', async () => {
     // This emulates the node.js ipc bug for win32
     let workerfarm = new WorkerFarm({
       warmWorkers: false,
@@ -132,7 +132,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Forwards stdio from the child process and levels event source if patchConsole is true', async () => {
+  test('Forwards stdio from the child process and levels event source if patchConsole is true', async () => {
     let events = [];
     let logDisposable = Logger.onLog(event => events.push(event));
 
@@ -207,7 +207,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Forwards logger events to the main process', async () => {
+  test('Forwards logger events to the main process', async () => {
     let events = [];
     let logDisposable = Logger.onLog(event => events.push(event));
 
@@ -247,7 +247,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should support reverse handle functions in main process that can be called in workers', async () => {
+  test('Should support reverse handle functions in main process that can be called in workers', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: false,
@@ -260,7 +260,7 @@ describe('WorkerFarm', function() {
     await workerfarm.end();
   });
 
-  it('Should dispose of handle objects when ending', async () => {
+  test('Should dispose of handle objects when ending', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: false,
@@ -273,7 +273,7 @@ describe('WorkerFarm', function() {
     assert.equal(workerfarm.handles.size, 0);
   });
 
-  it('Should support shared references in workers', async () => {
+  test('Should support shared references in workers', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: false,
@@ -291,7 +291,7 @@ describe('WorkerFarm', function() {
     assert.equal(result, 'Shared reference does not exist');
   });
 
-  it('should resolve shared references in workers', async () => {
+  test('should resolve shared references in workers', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: false,
@@ -310,7 +310,7 @@ describe('WorkerFarm', function() {
     assert(workerfarm.workerApi.resolveSharedReference(sharedValue) == null);
   });
 
-  it('Should support shared references in local worker', async () => {
+  test('Should support shared references in local worker', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: true,
@@ -328,7 +328,7 @@ describe('WorkerFarm', function() {
     assert.equal(result, 'Shared reference does not exist');
   });
 
-  it('should resolve shared references in local worker', async () => {
+  test('should resolve shared references in local worker', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: true,
@@ -347,7 +347,7 @@ describe('WorkerFarm', function() {
     assert(workerfarm.workerApi.resolveSharedReference(sharedValue) == null);
   });
 
-  it('Should dispose of shared references when ending', async () => {
+  test('Should dispose of shared references when ending', async () => {
     let workerfarm = new WorkerFarm({
       warmWorkers: true,
       useLocalWorker: false,

@@ -9,7 +9,7 @@ import {DEFAULT_OPTIONS} from './utils';
 const stats = {time: 0, size: 0};
 
 describe('InternalAsset', () => {
-  it('only includes connected files once per filePath', () => {
+  test('only includes connected files once per filePath', () => {
     let asset = new UncommittedAsset({
       value: createAsset({
         filePath: '/foo/asset.js',
@@ -30,7 +30,7 @@ describe('InternalAsset', () => {
     ]);
   });
 
-  it('only includes dependencies once per id', () => {
+  test('only includes dependencies once per id', () => {
     let asset = new UncommittedAsset({
       value: createAsset({
         filePath: '/foo/asset.js',
@@ -49,7 +49,7 @@ describe('InternalAsset', () => {
     assert(dependencies[0].moduleSpecifier === './foo');
   });
 
-  it('includes different dependencies if their id differs', () => {
+  test('includes different dependencies if their id differs', () => {
     let asset = new UncommittedAsset({
       value: createAsset({
         filePath: '/foo/asset.js',

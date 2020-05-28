@@ -3,7 +3,7 @@ import path from 'path';
 import {bundle, assertBundleTree, outputFS} from '@parcel/test-utils';
 
 describe.skip('markdown', function() {
-  it('should support bundling Markdown', async function() {
+  test('should support bundling Markdown', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/markdown/index.md'),
     );

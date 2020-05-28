@@ -12,7 +12,7 @@ const config = {
 };
 
 describe('blob urls', () => {
-  it('should inline compiled content as a blob url with `blob-url:*` imports', async () => {
+  test('should inline compiled content as a blob url with `blob-url:*` imports', async () => {
     await bundle(path.join(__dirname, '/integration/blob-url/index.js'), {
       config,
     });
@@ -34,7 +34,7 @@ describe('blob urls', () => {
     );
   });
 
-  it('should inline minified content as a blob url with `blob-url:*` imports', async () => {
+  test('should inline minified content as a blob url with `blob-url:*` imports', async () => {
     await bundle(path.join(__dirname, '/integration/blob-url/index.js'), {
       config,
       minify: true,

@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import throttle from '../src/throttle';
 
 describe('throttle', () => {
-  it("doesn't invoke a function more than once in a given interval", () => {
+  test("doesn't invoke a function more than once in a given interval", () => {
     let spy = sinon.spy();
     let throttled = throttle(spy, 100);
 
@@ -17,7 +17,7 @@ describe('throttle', () => {
     assert(spy.calledOnceWithExactly(1));
   });
 
-  it('calls the underlying function again once the interval has passed', () => {
+  test('calls the underlying function again once the interval has passed', () => {
     let time = sinon.useFakeTimers();
     let spy = sinon.spy();
     let throttled = throttle(spy, 100);
@@ -33,13 +33,13 @@ describe('throttle', () => {
     time.restore();
   });
 
-  it('preserves the `this` when throttled functions are invoked', () => {
+  test('preserves the `this` when throttled functions are invoked', () => {
     let result;
     let throttled = throttle(function() {
       result = this.bar;
     }, 100);
 
     throttled.call({bar: 'baz'});
-    assert(result === 'baz');
+    assert.equal(result, 'baz');
   });
 });

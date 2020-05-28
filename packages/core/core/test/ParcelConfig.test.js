@@ -30,12 +30,12 @@ describe('ParcelConfig', () => {
       false,
     );
 
-    it('should return null array if no glob matches', () => {
+    test('should return null array if no glob matches', () => {
       let result = config.matchGlobMap('foo.wasm', config.packagers);
       assert.deepEqual(result, null);
     });
 
-    it('should return a matching pipeline', () => {
+    test('should return a matching pipeline', () => {
       let result = config.matchGlobMap('foo.js', config.packagers);
       assert.deepEqual(result, {
         packageName: 'parcel-packager-js',
@@ -69,7 +69,7 @@ describe('ParcelConfig', () => {
       false,
     );
 
-    it('should return an empty array if no pipeline matches', () => {
+    test('should return an empty array if no pipeline matches', () => {
       let pipeline = config.matchGlobMapPipelines(
         'foo.css',
         config.transformers,
@@ -77,7 +77,7 @@ describe('ParcelConfig', () => {
       assert.deepEqual(pipeline, []);
     });
 
-    it('should return a matching pipeline', () => {
+    test('should return a matching pipeline', () => {
       let pipeline = config.matchGlobMapPipelines(
         'foo.js',
         config.transformers,
@@ -90,7 +90,7 @@ describe('ParcelConfig', () => {
       ]);
     });
 
-    it('should merge pipelines with spread elements', () => {
+    test('should merge pipelines with spread elements', () => {
       let pipeline = config.matchGlobMapPipelines(
         'foo.jsx',
         config.transformers,
@@ -109,7 +109,7 @@ describe('ParcelConfig', () => {
   });
 
   describe('loadPlugin', () => {
-    it('should warn if a plugin needs to specify an engines.parcel field in package.json', async () => {
+    test('should warn if a plugin needs to specify an engines.parcel field in package.json', async () => {
       let configFilePath = path.join(
         __dirname,
         'fixtures',
@@ -149,7 +149,7 @@ describe('ParcelConfig', () => {
       logger.warn.restore();
     });
 
-    it('should error if a plugin specifies an invalid engines.parcel field in package.json', async () => {
+    test('should error if a plugin specifies an invalid engines.parcel field in package.json', async () => {
       let configFilePath = path.join(
         __dirname,
         'fixtures',

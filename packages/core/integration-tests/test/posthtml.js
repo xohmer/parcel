@@ -8,12 +8,12 @@ import {
 } from '@parcel/test-utils';
 import path from 'path';
 
-describe('posthtml', function() {
+describe('posthtml', () => {
   afterEach(async () => {
     await removeDistDirectory();
   });
 
-  it('should support transforming HTML with posthtml', async function() {
+  test('should support transforming HTML with posthtml', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/posthtml/index.html'),
     );
@@ -29,7 +29,7 @@ describe('posthtml', function() {
     assert(html.includes('<h1>Other page</h1>'));
   });
 
-  it('should find assets inside posthtml', async function() {
+  test('should find assets inside posthtml', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/posthtml-assets/index.html'),
     );
@@ -46,7 +46,7 @@ describe('posthtml', function() {
     ]);
   });
 
-  it.skip('should add dependencies referenced by posthtml-include', async () => {
+  test.skip('should add dependencies referenced by posthtml-include', async () => {
     const b = await bundle(
       path.join(__dirname, '/integration/posthtml-assets/index.html'),
     );
@@ -59,7 +59,7 @@ describe('posthtml', function() {
     assert(asset.dependencies.get(other).includedInParent);
   });
 
-  it.skip('should add dependencies referenced by plugins', async () => {
+  test.skip('should add dependencies referenced by plugins', async () => {
     const b = await bundle(
       path.join(__dirname, '/integration/posthtml-plugin-deps/index.html'),
     );

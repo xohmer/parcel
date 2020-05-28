@@ -5,7 +5,7 @@ import Disposable from '../src/Disposable';
 import {AlreadyDisposedError} from '../src/errors';
 
 describe('Disposable', () => {
-  it('can wrap an IDisposable', () => {
+  test('can wrap an IDisposable', () => {
     let disposed;
 
     new Disposable({
@@ -16,7 +16,7 @@ describe('Disposable', () => {
     assert.equal(disposed, true);
   });
 
-  it('can wrap a function to dispose', () => {
+  test('can wrap a function to dispose', () => {
     let disposed;
     new Disposable(() => {
       disposed = true;
@@ -24,7 +24,7 @@ describe('Disposable', () => {
     assert.equal(disposed, true);
   });
 
-  it('can wrap many disposable-likes', () => {
+  test('can wrap many disposable-likes', () => {
     let disposed1;
     let disposed2;
 
@@ -42,7 +42,7 @@ describe('Disposable', () => {
     assert.equal(disposed2, true);
   });
 
-  it('can add disposables after construction', () => {
+  test('can add disposables after construction', () => {
     let disposed1;
     let disposed2;
     let disposed3;
@@ -83,7 +83,7 @@ describe('Disposable', () => {
     assert.equal(disposed4, true);
   });
 
-  it(
+  test(
     'does not dispose inner disposables more than once,' +
       ' and does not throw on subsequent disposals',
     () => {
@@ -101,7 +101,7 @@ describe('Disposable', () => {
     },
   );
 
-  it('throws if `add` is called after it has been disposed', () => {
+  test('throws if `add` is called after it has been disposed', () => {
     let disposable = new Disposable();
     disposable.dispose();
     assert.throws(() => {
@@ -109,7 +109,7 @@ describe('Disposable', () => {
     }, AlreadyDisposedError);
   });
 
-  it('can be checked for disposal state', () => {
+  test('can be checked for disposal state', () => {
     let disposable = new Disposable();
     assert.equal(disposable.disposed, false);
     disposable.dispose();

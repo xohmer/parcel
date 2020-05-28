@@ -4,7 +4,7 @@ import assert from 'assert';
 import {createEnvironment} from '../src/Environment';
 
 describe('Environment', () => {
-  it('assigns a default environment with nothing passed', () => {
+  test('assigns a default environment with nothing passed', () => {
     assert.deepEqual(createEnvironment(), {
       context: 'browser',
       engines: {
@@ -18,7 +18,7 @@ describe('Environment', () => {
     });
   });
 
-  it('assigns a node context if a node engine is given', () => {
+  test('assigns a node context if a node engine is given', () => {
     assert.deepEqual(createEnvironment({engines: {node: '>= 10.0.0'}}), {
       context: 'node',
       engines: {
@@ -32,7 +32,7 @@ describe('Environment', () => {
     });
   });
 
-  it('assigns a browser context if browser engines are given', () => {
+  test('assigns a browser context if browser engines are given', () => {
     assert.deepEqual(
       createEnvironment({engines: {browsers: ['last 1 version']}}),
       {
@@ -49,7 +49,7 @@ describe('Environment', () => {
     );
   });
 
-  it('assigns default engines for node', () => {
+  test('assigns default engines for node', () => {
     assert.deepEqual(createEnvironment({context: 'node'}), {
       context: 'node',
       engines: {
@@ -63,7 +63,7 @@ describe('Environment', () => {
     });
   });
 
-  it('assigns default engines for browsers', () => {
+  test('assigns default engines for browsers', () => {
     assert.deepEqual(createEnvironment({context: 'browser'}), {
       context: 'browser',
       engines: {

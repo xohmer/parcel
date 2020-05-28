@@ -14,7 +14,7 @@ describe('css', () => {
     await removeDistDirectory();
   });
 
-  it('should produce two bundles when importing a CSS file', async () => {
+  test('should produce two bundles when importing a CSS file', async () => {
     let b = await bundle(path.join(__dirname, '/integration/css/index.js'));
 
     assertBundles(b, [
@@ -33,7 +33,7 @@ describe('css', () => {
     assert.equal(output(), 3);
   });
 
-  it('should bundle css dependencies in the correct, postorder traversal order', async () => {
+  test('should bundle css dependencies in the correct, postorder traversal order', async () => {
     let b = await bundle(path.join(__dirname, '/integration/css-order/a.css'));
 
     // Given a tree of css with imports:
@@ -63,7 +63,7 @@ describe('css', () => {
     );
   });
 
-  it('should support loading a CSS bundle along side dynamic imports', async () => {
+  test('should support loading a CSS bundle along side dynamic imports', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/dynamic-css/index.js'),
     );
@@ -93,7 +93,7 @@ describe('css', () => {
     assert.equal(await output(), 3);
   });
 
-  it('should support importing CSS from a CSS file', async function() {
+  test('should support importing CSS from a CSS file', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/css-import/index.js'),
     );
@@ -120,7 +120,7 @@ describe('css', () => {
     assert(css.includes('.index'));
   });
 
-  it('should support linking to assets with url() from CSS', async function() {
+  test('should support linking to assets with url() from CSS', async () => {
     let b = await bundle(path.join(__dirname, '/integration/css-url/index.js'));
 
     assertBundles(b, [
@@ -158,7 +158,7 @@ describe('css', () => {
     );
   });
 
-  it('should support linking to assets with url() from CSS in production', async function() {
+  test('should support linking to assets with url() from CSS in production', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/css-url/index.js'),
       {
@@ -201,7 +201,7 @@ describe('css', () => {
     );
   });
 
-  it('should support linking to assets in parent folders with url() from CSS', async function() {
+  test('should support linking to assets in parent folders with url() from CSS', async () => {
     let b = await bundle(
       [
         path.join(__dirname, '/integration/css-url-relative/src/a/style1.css'),
@@ -242,7 +242,7 @@ describe('css', () => {
     );
   });
 
-  it('should ignore url() with IE behavior specifiers', async function() {
+  test('should ignore url() with IE behavior specifiers', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/css-url-behavior/index.css'),
     );
@@ -259,7 +259,7 @@ describe('css', () => {
     assert(css.includes('url(#default#VML)'));
   });
 
-  it('should minify CSS when minify is set', async function() {
+  test('should minify CSS when minify is set', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/cssnano/index.js'),
       {
@@ -279,7 +279,7 @@ describe('css', () => {
     assert.equal(css.split('\n').length, 1);
   });
 
-  it('should produce a sourcemap when sourceMaps are used', async function() {
+  test('should produce a sourcemap when sourceMaps are used', async () => {
     await bundle(path.join(__dirname, '/integration/cssnano/index.js'), {
       minify: true,
     });
@@ -303,7 +303,7 @@ describe('css', () => {
     ]);
   });
 
-  it('should inline data-urls for text-encoded files', async () => {
+  test('should inline data-urls for text-encoded files', async () => {
     await bundle(path.join(__dirname, '/integration/data-url/text.css'), {
       sourceMaps: false,
     });
@@ -316,7 +316,7 @@ describe('css', () => {
     );
   });
 
-  it('should inline data-urls for binary files', async () => {
+  test('should inline data-urls for binary files', async () => {
     await bundle(path.join(__dirname, '/integration/data-url/binary.css'));
     let css = await outputFS.readFile(path.join(distDir, 'binary.css'), 'utf8');
     assert(

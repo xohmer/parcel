@@ -4,7 +4,7 @@ import assert from 'assert';
 import validateModuleSpecifier from '../src/validateModuleSpecifier';
 
 describe('Validate Module Specifiers', () => {
-  it('Validate Module Specifiers', () => {
+  test('Validate Module Specifiers', () => {
     let modules = [
       '@parcel/transformer-posthtml/package.json',
       '@some-org/package@v1.0.0',
@@ -27,7 +27,7 @@ describe('Validate Module Specifiers', () => {
     );
   });
 
-  it('Return empty on invalid modules', () => {
+  test('Return empty on invalid modules', () => {
     let modules = ['./somewhere.js', './hello/world.js', '~/hello/world.js'];
 
     assert.deepEqual(

@@ -34,7 +34,7 @@ const TARGETS = [
 const stats = {size: 0, time: 0};
 
 describe('AssetGraph', () => {
-  it('initialization should create one root node with edges to entry_specifier nodes for each entry', () => {
+  test('initialization should create one root node with edges to entry_specifier nodes for each entry', () => {
     let graph = new AssetGraph();
     graph.initialize({
       entries: ['/path/to/index1', '/path/to/index2'],
@@ -45,7 +45,7 @@ describe('AssetGraph', () => {
     assert(graph.nodes.has('entry_specifier:/path/to/index2'));
   });
 
-  it('resolveEntry should connect an entry_specifier node to entry_file nodes', () => {
+  test('resolveEntry should connect an entry_specifier node to entry_file nodes', () => {
     let graph = new AssetGraph();
     graph.initialize({
       entries: ['/path/to/index1', '/path/to/index2'],
@@ -70,7 +70,7 @@ describe('AssetGraph', () => {
     );
   });
 
-  it('resolveTargets should connect an entry_file node to dependencies for each target', () => {
+  test('resolveTargets should connect an entry_file node to dependencies for each target', () => {
     let graph = new AssetGraph();
     graph.initialize({
       entries: ['/path/to/index1', '/path/to/index2'],
@@ -162,7 +162,7 @@ describe('AssetGraph', () => {
     ]);
   });
 
-  it('resolveDependency should update the file a dependency is connected to', () => {
+  test('resolveDependency should update the file a dependency is connected to', () => {
     let graph = new AssetGraph();
     graph.initialize({
       targets: TARGETS,
@@ -204,7 +204,7 @@ describe('AssetGraph', () => {
     assert(graph.hasEdge(dep.id, nodeFromAssetGroup(req2).id));
   });
 
-  it('resolveAssetGroup should update the asset and dep nodes a file is connected to', () => {
+  test('resolveAssetGroup should update the asset and dep nodes a file is connected to', () => {
     let graph = new AssetGraph();
     graph.initialize({
       targets: TARGETS,
@@ -349,7 +349,7 @@ describe('AssetGraph', () => {
   // Assets can define dependent assets in the same asset group by declaring a dependency with a module
   // specifer that matches the dependent asset's unique key. These dependent assets are then connected
   // to the asset's dependency instead of the asset group.
-  it('resolveAssetGroup should handle dependent assets in asset groups', () => {
+  test('resolveAssetGroup should handle dependent assets in asset groups', () => {
     let graph = new AssetGraph();
     graph.initialize({targets: TARGETS, entries: ['./index']});
 
@@ -431,7 +431,7 @@ describe('AssetGraph', () => {
     assert(graph.hasEdge(nodeFromDep(dep2).id, '3'));
   });
 
-  it('should support marking and unmarking parents with hasDeferred', () => {
+  test('should support marking and unmarking parents with hasDeferred', () => {
     let graph = new AssetGraph();
 
     let assetGroup = {filePath: '/index.js', env: DEFAULT_ENV};

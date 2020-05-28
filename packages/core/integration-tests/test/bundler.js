@@ -9,7 +9,7 @@ import {
 } from '@parcel/test-utils';
 
 describe.skip('bundler', function() {
-  it('should bundle once before exporting middleware', async function() {
+  test('should bundle once before exporting middleware', async () => {
     let b = bundler(
       path.join(__dirname, '/integration/bundler-middleware/index.js'),
     );
@@ -19,7 +19,7 @@ describe.skip('bundler', function() {
     assert(b.entryAssets);
   });
 
-  it('should defer bundling if a bundle is pending', async () => {
+  test('should defer bundling if a bundle is pending', async () => {
     const b = bundler(path.join(__dirname, '/integration/html/index.html'));
     b.pending = true; // bundle in progress
     const spy = sinon.spy(b, 'bundle');
@@ -37,7 +37,7 @@ describe.skip('bundler', function() {
     assert(spy.calledTwice);
   });
 
-  it('should enforce asset type path to be a string', () => {
+  test('should enforce asset type path to be a string', () => {
     const b = bundler(path.join(__dirname, '/integration/html/index.html'));
 
     assert.throws(() => {
@@ -45,7 +45,7 @@ describe.skip('bundler', function() {
     }, 'should be a module path');
   });
 
-  it('should enforce setup before bundling', () => {
+  test('should enforce setup before bundling', () => {
     const b = bundler(path.join(__dirname, '/integration/html/index.html'));
     b.farm = true; // truthy
 
@@ -58,7 +58,7 @@ describe.skip('bundler', function() {
     }, 'before bundling');
   });
 
-  it('should support multiple entry points', async function() {
+  test('should support multiple entry points', async () => {
     let b = await bundle([
       path.join(__dirname, '/integration/multi-entry/one.html'),
       path.join(__dirname, '/integration/multi-entry/two.html'),
@@ -83,7 +83,7 @@ describe.skip('bundler', function() {
     ]);
   });
 
-  it('should support multiple entry points as a glob', async function() {
+  test('should support multiple entry points as a glob', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/multi-entry/*.html'),
     );

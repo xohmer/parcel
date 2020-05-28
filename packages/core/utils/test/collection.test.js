@@ -4,7 +4,7 @@ import assert from 'assert';
 import {objectSortedEntries, objectSortedEntriesDeep} from '../src/collection';
 
 describe('objectSortedEntries', () => {
-  it('returns a sorted list of key/value tuples', () => {
+  test('returns a sorted list of key/value tuples', () => {
     assert.deepEqual(
       objectSortedEntries({foo: 'foo', baz: 'baz', bar: 'bar'}),
       [
@@ -17,7 +17,7 @@ describe('objectSortedEntries', () => {
 });
 
 describe('objectSortedEntriesDeep', () => {
-  it('returns a deeply sorted list of key/value tuples', () => {
+  test('returns a deeply sorted list of key/value tuples', () => {
     assert.deepEqual(
       objectSortedEntriesDeep({
         foo: 'foo',

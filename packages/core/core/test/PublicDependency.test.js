@@ -6,7 +6,7 @@ import {createDependency} from '../src/Dependency';
 import Dependency from '../src/public/Dependency';
 
 describe('Public Dependency', () => {
-  it('returns the same public Dependency given an internal dependency', () => {
+  test('returns the same public Dependency given an internal dependency', () => {
     let internalDependency = createDependency({
       moduleSpecifier: 'foo',
       env: createEnvironment({}),

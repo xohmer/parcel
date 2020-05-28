@@ -17,14 +17,14 @@ const pkgName = pkgInfo.pkg.name;
 
 describe('utils', () => {
   describe('isRequire', () => {
-    it('identifies requires', () => {
+    test('identifies requires', () => {
       assert.equal(
         isStaticRequire(getFirstExpression(parse("require('@parcel/core')"))),
         true,
       );
     });
 
-    it("doesn't handle dynamic requires", () => {
+    test("doesn't handle dynamic requires", () => {
       assert.equal(
         isStaticRequire(getFirstExpression(parse('require(dynamic)'))),
         false,
@@ -33,7 +33,7 @@ describe('utils', () => {
   });
 
   describe('isResolve', () => {
-    it('identifies built-in require.resolve', () => {
+    test('identifies built-in require.resolve', () => {
       assert.equal(
         isStaticResolve(
           getFirstExpression(parse("require.resolve('@parcel/core')")),
@@ -44,7 +44,7 @@ describe('utils', () => {
   });
 
   describe('relativePathForRequire', () => {
-    it('behaves identically as path.relative on unix', () => {
+    test('behaves identically as path.relative on unix', () => {
       let sep = path.sep;
       path.sep = '/';
       assert.equal(
@@ -59,7 +59,7 @@ describe('utils', () => {
       path.sep = sep;
     });
 
-    it('uses / to separate paths even when path.sep is not /', () => {
+    test('uses / to separate paths even when path.sep is not /', () => {
       let sep = path.sep;
       path.sep = '\\';
       assert.equal(
@@ -74,7 +74,7 @@ describe('utils', () => {
       path.sep = sep;
     });
 
-    it('leaves absolute paths alone', () => {
+    test('leaves absolute paths alone', () => {
       assert.equal(
         relativePathForRequire({
           origin: __filename,
@@ -86,7 +86,7 @@ describe('utils', () => {
       );
     });
 
-    it('prepends ./ to peer paths', () => {
+    test('prepends ./ to peer paths', () => {
       assert.equal(
         relativePathForRequire({
           origin: __filename,

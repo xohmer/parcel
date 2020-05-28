@@ -104,8 +104,8 @@ function checkSourceMapping({
   );
 }
 
-describe('sourcemaps', function() {
-  it('Should create a basic browser sourcemap', async function() {
+describe('sourcemaps', () => {
+  test('Should create a basic browser sourcemap', async () => {
     let sourceFilename = path.join(
       __dirname,
       '/integration/sourcemap/index.js',
@@ -158,7 +158,7 @@ describe('sourcemaps', function() {
     });
   });
 
-  it('Should create a basic node sourcemap', async function() {
+  test('Should create a basic node sourcemap', async () => {
     let sourceFilename = path.join(
       __dirname,
       '/integration/sourcemap-node/index.js',
@@ -218,7 +218,7 @@ describe('sourcemaps', function() {
     });
   });
 
-  it('should create a valid sourcemap for a js file with requires', async function() {
+  test('should create a valid sourcemap for a js file with requires', async () => {
     let sourceDir = path.join(__dirname, '/integration/sourcemap-nested/');
     let sourceFilename = path.join(sourceDir, '/index.js');
     await bundle(sourceFilename);
@@ -299,7 +299,7 @@ describe('sourcemaps', function() {
     });
   });
 
-  it('should create a valid sourcemap for a minified js bundle with requires', async function() {
+  test('should create a valid sourcemap for a minified js bundle with requires', async () => {
     let sourceDir = path.join(
       __dirname,
       '/integration/sourcemap-nested-minified/',
@@ -393,7 +393,7 @@ describe('sourcemaps', function() {
     });
   });
 
-  it('should create a valid sourcemap as a child of a TS bundle', async function() {
+  test('should create a valid sourcemap as a child of a TS bundle', async () => {
     let inputFilePath = path.join(
       __dirname,
       '/integration/sourcemap-typescript/index.ts',
@@ -430,7 +430,7 @@ describe('sourcemaps', function() {
     });
   });
 
-  it('should create a valid sourcemap as a child of a nested TS bundle', async function() {
+  test('should create a valid sourcemap as a child of a nested TS bundle', async () => {
     let inputFilePath = path.join(
       __dirname,
       '/integration/sourcemap-typescript-nested/index.ts',
@@ -479,7 +479,7 @@ describe('sourcemaps', function() {
     });
   });
 
-  it('should create a valid sourcemap for a CSS bundle', async function() {
+  test('should create a valid sourcemap for a CSS bundle', async () => {
     async function test(minify) {
       let inputFilePath = path.join(
         __dirname,
@@ -532,7 +532,7 @@ describe('sourcemaps', function() {
     await test(true);
   });
 
-  it('should create a valid sourcemap for a CSS bundle with imports', async function() {
+  test('should create a valid sourcemap for a CSS bundle with imports', async () => {
     async function test(minify) {
       let inputFilePath = path.join(
         __dirname,
@@ -640,7 +640,7 @@ describe('sourcemaps', function() {
     await test(true);
   });
 
-  it('should create a valid sourcemap for a SASS asset', async function() {
+  test('should create a valid sourcemap for a SASS asset', async () => {
     async function test(minify) {
       let inputFilePath = path.join(
         __dirname,
@@ -692,7 +692,7 @@ describe('sourcemaps', function() {
     await test(true);
   });
 
-  it('should create a valid sourcemap when for a CSS asset importing SASS', async function() {
+  test('should create a valid sourcemap when for a CSS asset importing SASS', async () => {
     async function test(minify) {
       let inputFilePath = path.join(
         __dirname,
@@ -770,7 +770,7 @@ describe('sourcemaps', function() {
     await test(true);
   });
 
-  it('should create a valid sourcemap for a LESS asset', async function() {
+  test('should create a valid sourcemap for a LESS asset', async () => {
     async function test(minify) {
       let inputFilePath = path.join(
         __dirname,
@@ -822,7 +822,7 @@ describe('sourcemaps', function() {
     await test(true);
   });
 
-  it('Should be able to create a sourcemap with inlined sources', async function() {
+  test('Should be able to create a sourcemap with inlined sources', async () => {
     let sourceFilename = path.join(
       __dirname,
       '/integration/sourcemap-inline-sources/index.js',
@@ -850,7 +850,7 @@ describe('sourcemaps', function() {
     assert.equal(map.sourcesContent[0], sourceContent);
   });
 
-  it('Should be able to create inline sourcemaps', async function() {
+  test('Should be able to create inline sourcemaps', async () => {
     let sourceFilename = path.join(
       __dirname,
       '/integration/sourcemap-generate-inline/index.js',
@@ -880,7 +880,7 @@ describe('sourcemaps', function() {
     assert.deepEqual(map.sources, ['index.js']);
   });
 
-  it('should respect --no-source-maps', async function() {
+  test('should respect --no-source-maps', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/sourcemap/index.js'),
       {
@@ -894,7 +894,7 @@ describe('sourcemaps', function() {
     );
   });
 
-  it.skip('should load existing sourcemaps for CSS files', async function() {
+  test.skip('should load existing sourcemaps for CSS files', async function() {
     async function test(minify) {
       let b = await bundle(
         path.join(__dirname, '/integration/sourcemap-css-existing/style.css'),
@@ -998,7 +998,7 @@ describe('sourcemaps', function() {
     await test(true);
   });
 
-  it.skip('should load existing sourcemaps of libraries', async function() {
+  test.skip('should load existing sourcemaps of libraries', async function() {
     let b = await bundle(
       path.join(__dirname, '/integration/sourcemap-existing/index.js'),
     );
@@ -1033,7 +1033,7 @@ describe('sourcemaps', function() {
     );
   });
 
-  it.skip('should load inline sourcemaps of libraries', async function() {
+  test.skip('should load inline sourcemaps of libraries', async function() {
     let b = await bundle(
       path.join(__dirname, '/integration/sourcemap-inline/index.js'),
     );
@@ -1068,7 +1068,7 @@ describe('sourcemaps', function() {
     );
   });
 
-  it.skip('should load referenced contents of sourcemaps', async function() {
+  test.skip('should load referenced contents of sourcemaps', async function() {
     let b = await bundle(
       path.join(__dirname, '/integration/sourcemap-external-contents/index.js'),
     );

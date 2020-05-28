@@ -2,8 +2,8 @@ import assert from 'assert';
 import path from 'path';
 import {bundle, run} from '@parcel/test-utils';
 
-describe('resolver', function() {
-  it('should support resolving tilde in monorepo packages', async function() {
+describe('resolver', () => {
+  test('should support resolving tilde in monorepo packages', async () => {
     let b = await bundle(
       path.join(
         __dirname,
@@ -15,7 +15,7 @@ describe('resolver', function() {
     assert.strictEqual(output.default, 1234);
   });
 
-  it('should correctly resolve tilde in node_modules', async function() {
+  test('should correctly resolve tilde in node_modules', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/resolve-tilde-nodemodules/index.js'),
     );
@@ -24,7 +24,7 @@ describe('resolver', function() {
     assert.strictEqual(output.default, 1234);
   });
 
-  it('should fall back to index.js if the resolved `main` file does not exist', async function() {
+  test('should fall back to index.js if the resolved `main` file does not exist', async () => {
     let b = await bundle(
       path.join(
         __dirname,
@@ -36,7 +36,7 @@ describe('resolver', function() {
     assert.strictEqual(output.default, 42);
   });
 
-  it('should fall back to index.js if there is no `main` field at all', async function() {
+  test('should fall back to index.js if there is no `main` field at all', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/resolve-index-fallback/no-entry.js'),
     );
@@ -45,7 +45,7 @@ describe('resolver', function() {
     assert.strictEqual(output.default, 42);
   });
 
-  it('should throw an error on Webpack loader imports', async function() {
+  test('should throw an error on Webpack loader imports', async () => {
     let didThrow = false;
     try {
       await bundle(
@@ -65,7 +65,7 @@ describe('resolver', function() {
     assert(didThrow);
   });
 
-  it('should throw an error with codeframe on invalid js import', async function() {
+  test('should throw an error with codeframe on invalid js import', async () => {
     let didThrow = false;
     try {
       await bundle(
@@ -89,7 +89,7 @@ describe('resolver', function() {
     assert(didThrow);
   });
 
-  it('should throw an error with codeframe on invalid css import', async function() {
+  test('should throw an error with codeframe on invalid css import', async () => {
     let didThrow = false;
     try {
       await bundle(
@@ -113,7 +113,7 @@ describe('resolver', function() {
     assert(didThrow);
   });
 
-  it('Should return codeframe with hints when package.json is invalid', async function() {
+  test('Should return codeframe with hints when package.json is invalid', async () => {
     let didThrow = false;
     try {
       await bundle(
@@ -143,7 +143,7 @@ describe('resolver', function() {
     assert(didThrow);
   });
 
-  it('Should suggest alternative filenames for relative imports', async function() {
+  test('Should suggest alternative filenames for relative imports', async () => {
     let threw = 0;
 
     try {
@@ -200,7 +200,7 @@ describe('resolver', function() {
     assert.equal(threw, 3);
   });
 
-  it('Should suggest alternative modules for module imports', async function() {
+  test('Should suggest alternative modules for module imports', async () => {
     let threw = false;
 
     try {
@@ -221,7 +221,7 @@ describe('resolver', function() {
     assert(threw);
   });
 
-  it('should resolve packages to packages through the alias field', async function() {
+  test('should resolve packages to packages through the alias field', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/alias/package-to-package.js'),
     );
@@ -230,7 +230,7 @@ describe('resolver', function() {
     assert.strictEqual(output.default, 3);
   });
 
-  it('should resolve packages to local files through the alias field', async function() {
+  test('should resolve packages to local files through the alias field', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/alias/package-to-local.js'),
     );
@@ -239,7 +239,7 @@ describe('resolver', function() {
     assert.strictEqual(output.default, 'bar');
   });
 
-  it('should exclude local files using the alias field', async function() {
+  test('should exclude local files using the alias field', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/alias/exclude-local.js'),
     );
@@ -248,7 +248,7 @@ describe('resolver', function() {
     assert.deepEqual(output.default, {});
   });
 
-  it('should exclude packages using the alias field', async function() {
+  test('should exclude packages using the alias field', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/alias/exclude-package.js'),
     );

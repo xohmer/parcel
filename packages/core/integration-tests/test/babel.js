@@ -22,9 +22,9 @@ import tempy from 'tempy';
 const parcelCli = require.resolve('parcel/src/bin.js');
 const inputDir = path.join(__dirname, '/input');
 
-describe('babel', function() {
+describe('babel', () => {
   let subscription;
-  beforeEach(async function() {
+  beforeEach(async () => {
     // TODO maybe don't do this for all tests
     await sleep(100);
     await outputFS.rimraf(inputDir);
@@ -39,7 +39,7 @@ describe('babel', function() {
     }
   });
 
-  it.skip('should auto install @babel/core v7', async function() {
+  test.skip('should auto install @babel/core v7', async function() {
     let originalPkg = await fs.readFile(
       __dirname + '/integration/babel-7-autoinstall/package.json',
     );
@@ -62,7 +62,7 @@ describe('babel', function() {
     );
   });
 
-  it.skip('should auto install babel plugins', async function() {
+  test.skip('should auto install babel plugins', async function() {
     let originalPkg = await fs.readFile(
       __dirname + '/integration/babel-plugin-autoinstall/package.json',
     );
@@ -90,7 +90,7 @@ describe('babel', function() {
     );
   });
 
-  it('should support compiling with babel using .babelrc config', async function() {
+  test('should support compiling with babel using .babelrc config', async () => {
     await bundle(path.join(__dirname, '/integration/babelrc-custom/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
@@ -98,7 +98,7 @@ describe('babel', function() {
     assert(file.includes('hello there'));
   });
 
-  it('should support compiling with babel using babel.config.json config without warnings', async function() {
+  test('should support compiling with babel using babel.config.json config without warnings', async () => {
     let messages = [];
     let loggerDisposable = Logger.onLog(message => {
       messages.push(message);
@@ -117,7 +117,7 @@ describe('babel', function() {
     assert.deepEqual(messages, []);
   });
 
-  it('should compile with babel with default engines if no config', async function() {
+  test('should compile with babel with default engines if no config', async () => {
     await bundle(path.join(__dirname, '/integration/babel-default/index.js'), {
       mode: 'production',
       defaultEngines: null,
@@ -128,7 +128,7 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should support compiling with babel using browserlist', async function() {
+  test('should support compiling with babel using browserlist', async () => {
     await bundle(
       path.join(__dirname, '/integration/babel-browserslist/index.js'),
     );
@@ -138,7 +138,7 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should only include necessary parts of core-js using browserlist', async function() {
+  test('should only include necessary parts of core-js using browserlist', async () => {
     await bundle(path.join(__dirname, '/integration/babel-core-js/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
@@ -149,7 +149,7 @@ describe('babel', function() {
     assert(!file.includes('es.array.concat'));
   });
 
-  it.skip('should support compiling with babel using browserslist for different environments', async function() {
+  test.skip('should support compiling with babel using browserslist for different environments', async function() {
     async function testBrowserListMultipleEnv(projectBasePath) {
       // Transpiled destructuring, like r = p.prop1, o = p.prop2, a = p.prop3;
       const prodRegExp = /\S+ ?= ?\S+\.prop1,\s*?\S+ ?= ?\S+\.prop2,\s*?\S+ ?= ?\S+\.prop3;/;
@@ -179,7 +179,7 @@ describe('babel', function() {
     );
   });
 
-  it('can build using @babel/preset-env when engines have semver ranges', async () => {
+  test('can build using @babel/preset-env when engines have semver ranges', async () => {
     let fixtureDir = path.join(__dirname, '/integration/babel-semver-engine');
     await bundle(path.join(fixtureDir, 'index.js'));
 
@@ -198,7 +198,7 @@ describe('babel', function() {
     assert(modern.includes('class Bar'));
   });
 
-  it('should not compile node_modules by default', async function() {
+  test('should not compile node_modules by default', async () => {
     await bundle(
       path.join(__dirname, '/integration/babel-node-modules/index.js'),
     );
@@ -208,7 +208,7 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should compile node_modules with browserslist to app target', async function() {
+  test('should compile node_modules with browserslist to app target', async () => {
     await bundle(
       path.join(
         __dirname,
@@ -221,7 +221,7 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should compile node_modules when symlinked with a source field in package.json', async function() {
+  test('should compile node_modules when symlinked with a source field in package.json', async () => {
     const inputDir = path.join(__dirname, '/input');
     await fs.rimraf(inputDir);
     await fs.mkdirp(path.join(inputDir, 'node_modules'));
@@ -244,7 +244,7 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should not compile node_modules with a source field in package.json when not symlinked', async function() {
+  test('should not compile node_modules with a source field in package.json when not symlinked', async () => {
     await bundle(
       path.join(
         __dirname,
@@ -257,49 +257,49 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should support compiling JSX', async function() {
+  test('should support compiling JSX', async () => {
     await bundle(path.join(__dirname, '/integration/jsx/index.jsx'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
     assert(file.includes('React.createElement("div"'));
   });
 
-  it('should support compiling JSX in JS files with React dependency', async function() {
+  test('should support compiling JSX in JS files with React dependency', async () => {
     await bundle(path.join(__dirname, '/integration/jsx-react/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
     assert(file.includes('React.createElement("div"'));
   });
 
-  it('should support compiling JSX in JS files with React aliased to Preact', async function() {
+  test('should support compiling JSX in JS files with React aliased to Preact', async () => {
     await bundle(path.join(__dirname, '/integration/jsx-react-alias/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
     assert(file.includes('React.createElement("div"'));
   });
 
-  it('should support compiling JSX in JS files with Preact dependency', async function() {
+  test('should support compiling JSX in JS files with Preact dependency', async () => {
     await bundle(path.join(__dirname, '/integration/jsx-preact/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
     assert(file.includes('h("div"'));
   });
 
-  it('should support compiling JSX in JS files with Nerv dependency', async function() {
+  test('should support compiling JSX in JS files with Nerv dependency', async () => {
     await bundle(path.join(__dirname, '/integration/jsx-nervjs/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
     assert(file.includes('Nerv.createElement("div"'));
   });
 
-  it('should support compiling JSX in JS files with Hyperapp dependency', async function() {
+  test('should support compiling JSX in JS files with Hyperapp dependency', async () => {
     await bundle(path.join(__dirname, '/integration/jsx-hyperapp/index.js'));
 
     let file = await outputFS.readFile(path.join(distDir, 'index.js'), 'utf8');
     assert(file.includes('h("div"'));
   });
 
-  it('should strip away flow types of node modules', async function() {
+  test('should strip away flow types of node modules', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/babel-strip-flow-types/index.js'),
     );
@@ -312,7 +312,7 @@ describe('babel', function() {
     assert(!file.includes('OptionsType'));
   });
 
-  it('should support compiling with babel using babel.config.js config', async function() {
+  test('should support compiling with babel using babel.config.js config', async () => {
     await bundle(
       path.join(__dirname, '/integration/babel-config-js/src/index.js'),
     );
@@ -322,7 +322,7 @@ describe('babel', function() {
     assert(file.match(/return \d+;/));
   });
 
-  it('should support compiling with babel using babel.config.js config with a require in it', async function() {
+  test('should support compiling with babel using babel.config.js config with a require in it', async () => {
     await bundle(
       path.join(__dirname, '/integration/babel-config-js-require/src/index.js'),
     );
@@ -332,7 +332,7 @@ describe('babel', function() {
     assert(file.match(/return \d+;/));
   });
 
-  it('should support multitarget builds using a custom babel config with @parcel/babel-preset-env', async function() {
+  test('should support multitarget builds using a custom babel config with @parcel/babel-preset-env', async () => {
     let fixtureDir = path.join(
       __dirname,
       '/integration/babel-config-js-multitarget',
@@ -354,7 +354,7 @@ describe('babel', function() {
     await outputFS.rimraf(path.join(fixtureDir, 'dist'));
   });
 
-  it('should support multitarget builds using a custom babel config with @parcel/babel-plugin-transform-runtime', async function() {
+  test('should support multitarget builds using a custom babel config with @parcel/babel-plugin-transform-runtime', async () => {
     let fixtureDir = path.join(
       __dirname,
       '/integration/babel-config-js-multitarget-transform-runtime',
@@ -377,7 +377,7 @@ describe('babel', function() {
     await outputFS.rimraf(path.join(fixtureDir, 'dist'));
   });
 
-  it('should support building with default babel config when running parcel globally', async function() {
+  test('should support building with default babel config when running parcel globally', async () => {
     let tmpDir = tempy.directory();
     let distDir = path.join(tmpDir, 'dist');
     await fs.ncp(
@@ -399,7 +399,7 @@ describe('babel', function() {
     assert(file.includes('function Bar'));
   });
 
-  it('should support building with custom babel config when running parcel globally', async function() {
+  test('should support building with custom babel config when running parcel globally', async () => {
     let tmpDir = tempy.directory();
     let distDir = path.join(tmpDir, 'dist');
     await fs.ncp(
@@ -421,7 +421,7 @@ describe('babel', function() {
     assert(file.includes('hello there'));
   });
 
-  it('should support merging .babelrc and babel.config.json in a monorepo', async function() {
+  test('should support merging .babelrc and babel.config.json in a monorepo', async () => {
     await bundle(
       path.join(
         __dirname,
@@ -439,7 +439,7 @@ describe('babel', function() {
   });
 
   describe('Babel envName', () => {
-    it('should prefer BABEL_ENV to NODE_ENV', async () => {
+    test('should prefer BABEL_ENV to NODE_ENV', async () => {
       await bundle(
         path.join(__dirname, '/integration/babel-env-name/index.js'),
         {
@@ -454,7 +454,7 @@ describe('babel', function() {
       assert(!file.includes('class Foo'));
     });
 
-    it('should prefer the babel env name from options.env', async () => {
+    test('should prefer the babel env name from options.env', async () => {
       let prevNodeEnv = process.env.NODE_ENV;
       let prevBabelEnv = process.env.BABEL_ENV;
 
@@ -487,7 +487,7 @@ describe('babel', function() {
     });
 
     // TODO: Unskip when multiple WorkerFarm/MemoryFS can run concurrently in tests
-    it.skip('should use process.env.BABEL_ENV if available', async () => {
+    test.skip('should use process.env.BABEL_ENV if available', async () => {
       let prevBabelEnv = process.env.BABEL_ENV;
       process.env.BABEL_ENV = 'production';
 
@@ -513,7 +513,7 @@ describe('babel', function() {
       process.env.BABEL_ENV = prevBabelEnv;
     });
 
-    it('should be "production" if Parcel is run in production mode', async () => {
+    test('should be "production" if Parcel is run in production mode', async () => {
       await bundle(
         path.join(__dirname, '/integration/babel-env-name/index.js'),
         {
@@ -535,7 +535,7 @@ describe('babel', function() {
       await fs.rimraf(distDir);
     });
 
-    it('should rebuild when .babelrc changes', async function() {
+    test('should rebuild when .babelrc changes', async () => {
       let inputDir = tempy.directory();
       let differentPath = path.join(inputDir, 'differentConfig');
       let configPath = path.join(inputDir, '.babelrc');
@@ -568,7 +568,7 @@ describe('babel', function() {
       assert(distFile.includes('something different'));
     });
 
-    it('should invalidate babel.config.js across runs', async function() {
+    test('should invalidate babel.config.js across runs', async () => {
       let dateRe = /return (\d+);/;
 
       let fixtureDir = path.join(__dirname, '/integration/babel-config-js');
@@ -613,7 +613,7 @@ describe('babel', function() {
       assert.notEqual(firstDatestamp, secondDatestamp);
     });
 
-    it('should invalidate when babel plugins are upgraded across runs', async function() {
+    test('should invalidate when babel plugins are upgraded across runs', async () => {
       let fixtureDir = path.join(
         __dirname,
         '/integration/babel-plugin-upgrade',

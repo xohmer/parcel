@@ -30,7 +30,7 @@ describe('NodePackageManager', () => {
     await workerFarm.end();
   });
 
-  it('resolves packages that exist', async () => {
+  test('resolves packages that exist', async () => {
     assert.deepEqual(
       await packageManager.resolve(
         'foo',
@@ -45,7 +45,7 @@ describe('NodePackageManager', () => {
     );
   });
 
-  it('requires packages that exist', async () => {
+  test('requires packages that exist', async () => {
     assert.deepEqual(
       await packageManager.require(
         'foo',
@@ -55,7 +55,7 @@ describe('NodePackageManager', () => {
     );
   });
 
-  it("autoinstalls packages that don't exist", async () => {
+  test("autoinstalls packages that don't exist", async () => {
     packageInstaller.register('a', fs, path.join(FIXTURES_DIR, 'packages/a'));
 
     assert.deepEqual(
@@ -72,7 +72,7 @@ describe('NodePackageManager', () => {
     );
   });
 
-  it('does not autoinstall packages that are already listed in package.json', async () => {
+  test('does not autoinstall packages that are already listed in package.json', async () => {
     packageInstaller.register('a', fs, path.join(FIXTURES_DIR, 'packages/a'));
 
     // $FlowFixMe assert.rejects is Node 10+
@@ -90,7 +90,7 @@ describe('NodePackageManager', () => {
     );
   });
 
-  it('does not autoinstall peer dependencies that are already listed in package.json', async () => {
+  test('does not autoinstall peer dependencies that are already listed in package.json', async () => {
     packageInstaller.register(
       'peers',
       fs,
@@ -115,7 +115,7 @@ describe('NodePackageManager', () => {
     ]);
   });
 
-  it('autoinstalls peer dependencies that are not listed in package.json', async () => {
+  test('autoinstalls peer dependencies that are not listed in package.json', async () => {
     packageInstaller.register(
       'foo',
       fs,
@@ -155,7 +155,7 @@ describe('NodePackageManager', () => {
   });
 
   describe('range mismatch', () => {
-    it("cannot autoinstall if there's a local requirement", async () => {
+    test("cannot autoinstall if there's a local requirement", async () => {
       // $FlowFixMe assert.rejects is Node 10+
       await assert.rejects(
         () =>
@@ -177,7 +177,7 @@ describe('NodePackageManager', () => {
       );
     });
 
-    it("can autoinstall into local package if there isn't a local requirement", async () => {
+    test("can autoinstall into local package if there isn't a local requirement", async () => {
       packageInstaller.register(
         'foo',
         fs,
@@ -221,7 +221,7 @@ describe('NodePackageManager', () => {
       ]);
     });
 
-    it("cannot autoinstall peer dependencies if there's an incompatible local requirement", async () => {
+    test("cannot autoinstall peer dependencies if there's an incompatible local requirement", async () => {
       packageInstaller.register(
         'foo',
         fs,

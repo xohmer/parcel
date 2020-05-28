@@ -16,7 +16,7 @@ describe('Logger', () => {
     logDisposable.dispose();
   });
 
-  it('emits log diagnostics with info level', () => {
+  test('emits log diagnostics with info level', () => {
     let diagnostic = {
       message: 'hello',
       origin: 'logger',
@@ -33,7 +33,7 @@ describe('Logger', () => {
     );
   });
 
-  it('emits warn diagnostic with warn level', () => {
+  test('emits warn diagnostic with warn level', () => {
     let diagnostic = {
       message: 'zomg',
       origin: 'logger',
@@ -46,7 +46,7 @@ describe('Logger', () => {
     );
   });
 
-  it('emits error messages with error level', () => {
+  test('emits error messages with error level', () => {
     let diagnostic = {
       message: 'oh noes',
       origin: 'logger',
@@ -63,7 +63,7 @@ describe('Logger', () => {
     );
   });
 
-  it('emits progress messages with progress level', () => {
+  test('emits progress messages with progress level', () => {
     Logger.progress('update');
     assert(
       onLog.calledWith({level: 'progress', message: 'update', type: 'log'}),

@@ -5,7 +5,7 @@ import assert from 'assert';
 import path from 'path';
 
 describe.skip('@parcel/register', () => {
-  it('can be required at an entry script and transform following requires', () => {
+  test('can be required at an entry script and transform following requires', () => {
     assert.equal(
       execSync(
         `node ${path.join(
@@ -19,7 +19,7 @@ describe.skip('@parcel/register', () => {
     );
   });
 
-  it('can transform with --r and --require', () => {
+  test('can transform with --r and --require', () => {
     assert.equal(
       execSync(
         `node -r @parcel/register ${path.join(
@@ -33,7 +33,7 @@ describe.skip('@parcel/register', () => {
     );
   });
 
-  it("enables Parcel's resolver in node", () => {
+  test("enables Parcel's resolver in node", () => {
     let [foo, resolved] = execSync(
       `node -r @parcel/register ${path.join(
         __dirname,
@@ -52,7 +52,7 @@ describe.skip('@parcel/register', () => {
     );
   });
 
-  it('can be disposed of, which reverts resolving', () => {
+  test('can be disposed of, which reverts resolving', () => {
     try {
       execSync(
         `node ${path.join(
@@ -81,7 +81,7 @@ describe.skip('@parcel/register', () => {
     assert.fail();
   });
 
-  it('can be disposed of, which reverts transforming', () => {
+  test('can be disposed of, which reverts transforming', () => {
     try {
       execSync(
         `node ${path.join(

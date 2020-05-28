@@ -22,7 +22,7 @@ export default class Foo {
 const preset = require.resolve('../');
 
 describe('@parcel/babel-preset-env', () => {
-  it('compiles against targets passed through caller when the caller is parcel 2.x', () => {
+  test('compiles against targets passed through caller when the caller is parcel 2.x', () => {
     let {code: transformed} = babel.transformSync(input, {
       configFile: false,
       presets: [preset],
@@ -40,7 +40,7 @@ describe('@parcel/babel-preset-env', () => {
     assert(transformed.includes('export default'));
   });
 
-  it('does not compile against targets passed through caller when the caller is not parcel', () => {
+  test('does not compile against targets passed through caller when the caller is not parcel', () => {
     let {code: transformed} = babel.transformSync(input, {
       configFile: false,
       presets: [preset],
@@ -58,7 +58,7 @@ describe('@parcel/babel-preset-env', () => {
     assert(!transformed.includes('export default'));
   });
 
-  it('does not compile against targets passed through caller when the caller is not present', () => {
+  test('does not compile against targets passed through caller when the caller is not present', () => {
     let {code: transformed} = babel.transformSync(input, {
       configFile: false,
       presets: [preset],

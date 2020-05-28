@@ -51,7 +51,7 @@ describe('TargetResolver', () => {
     return fs.rimraf(cacheDir);
   });
 
-  it('resolves exactly specified targets', async () => {
+  test('resolves exactly specified targets', async () => {
     let targetResolver = new TargetResolver({
       ...DEFAULT_OPTIONS,
       targets: {
@@ -112,7 +112,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('resolves common targets from package.json', async () => {
+  test('resolves common targets from package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
 
     assert.deepEqual(
@@ -222,7 +222,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('allows ignoring common targets from package.json', async () => {
+  test('allows ignoring common targets from package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
 
     assert.deepEqual(
@@ -274,7 +274,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('resolves custom targets from package.json', async () => {
+  test('resolves custom targets from package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     assert.deepEqual(
       await targetResolver.resolve(CUSTOM_TARGETS_FIXTURE_PATH),
@@ -381,7 +381,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('resolves main target with context from package.json', async () => {
+  test('resolves main target with context from package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     assert.deepEqual(await targetResolver.resolve(CONTEXT_FIXTURE_PATH), {
       files: [{filePath: path.join(CONTEXT_FIXTURE_PATH, 'package.json')}],
@@ -424,7 +424,7 @@ describe('TargetResolver', () => {
     });
   });
 
-  it('resolves main target as an application when non-js file extension is used', async () => {
+  test('resolves main target as an application when non-js file extension is used', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     let fixture = path.join(__dirname, 'fixtures/application-targets');
     assert.deepEqual(await targetResolver.resolve(fixture), {
@@ -468,7 +468,7 @@ describe('TargetResolver', () => {
     });
   });
 
-  it('resolves a subset of package.json targets when given a list of names', async () => {
+  test('resolves a subset of package.json targets when given a list of names', async () => {
     let targetResolver = new TargetResolver({
       ...DEFAULT_OPTIONS,
       targets: ['main', 'browser'],
@@ -547,7 +547,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('generates a default target in serve mode', async () => {
+  test('generates a default target in serve mode', async () => {
     let targetResolver = new TargetResolver({
       ...DEFAULT_OPTIONS,
       serve: {port: 1234},
@@ -585,7 +585,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('rejects invalid or unknown fields', async () => {
+  test('rejects invalid or unknown fields', async () => {
     let code =
       '{\n' +
       '\t"targets": {\n' +
@@ -665,7 +665,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('rejects invalid or unknown fields in package.json', async () => {
+  test('rejects invalid or unknown fields in package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     let code = await fs.readFileSync(
       path.join(INVALID_TARGETS_FIXTURE_PATH, 'package.json'),
@@ -702,7 +702,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('rejects invalid engines in package.json', async () => {
+  test('rejects invalid engines in package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     let code = await fs.readFileSync(
       path.join(INVALID_ENGINES_FIXTURE_PATH, 'package.json'),
@@ -751,7 +751,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('rejects target distpath in package.json', async () => {
+  test('rejects target distpath in package.json', async () => {
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     let code = await fs.readFileSync(
       path.join(INVALID_DISTPATH_FIXTURE_PATH, 'package.json'),
@@ -789,7 +789,7 @@ describe('TargetResolver', () => {
     );
   });
 
-  it('rejects duplicate target paths', async () => {
+  test('rejects duplicate target paths', async () => {
     let fixture = path.join(__dirname, 'fixtures/duplicate-targets');
     let targetResolver = new TargetResolver(DEFAULT_OPTIONS);
     let code = await fs.readFileSync(

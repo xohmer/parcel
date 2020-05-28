@@ -9,7 +9,7 @@ const https = {
 };
 
 describe('getCertificate', () => {
-  it('should support custom certificate', async () => {
+  test('should support custom certificate', async () => {
     const key = await fs.readFile(
       path.join(__dirname, '/integration/https', 'private.pem'),
     );

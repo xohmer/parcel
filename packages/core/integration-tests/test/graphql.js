@@ -3,8 +3,8 @@ import path from 'path';
 import gql from 'graphql-tag';
 import {bundle, run} from '@parcel/test-utils';
 
-describe('graphql', function() {
-  it('should support requiring graphql files', async function() {
+describe('graphql', () => {
+  test('should support requiring graphql files', async () => {
     let b = await bundle(path.join(__dirname, '/integration/graphql/index.js'));
 
     let output = await run(b);
@@ -26,7 +26,7 @@ describe('graphql', function() {
     );
   });
 
-  it('should support importing other graphql files from a graphql file', async function() {
+  test('should support importing other graphql files from a graphql file', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/graphql-import/index.js'),
     );

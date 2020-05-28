@@ -22,11 +22,11 @@ describe('Public Asset', () => {
     });
   });
 
-  it('returns the same public Asset given an internal asset', () => {
+  test('returns the same public Asset given an internal asset', () => {
     assert.equal(new Asset(internalAsset), new Asset(internalAsset));
   });
 
-  it('returns the same public MutableAsset given an internal asset', () => {
+  test('returns the same public MutableAsset given an internal asset', () => {
     assert.equal(
       new MutableAsset(internalAsset),
       new MutableAsset(internalAsset),

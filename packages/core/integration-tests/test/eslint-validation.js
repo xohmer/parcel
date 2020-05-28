@@ -12,8 +12,8 @@ const config = {
   filePath: require.resolve('@parcel/config-default'),
 };
 
-describe('eslint-validator', function() {
-  it('should throw validation error with eslint errors', async function() {
+describe('eslint-validator', () => {
+  test('should throw validation error with eslint errors', async () => {
     let didThrow = false;
     let entry = path.join(__dirname, '/integration/eslint-error/index.js');
     try {
@@ -51,7 +51,7 @@ describe('eslint-validator', function() {
     assert(didThrow);
   });
 
-  it('should throw a correct codeframe for a parse error', async function() {
+  test('should throw a correct codeframe for a parse error', async () => {
     let didThrow = false;
     let entry = path.join(
       __dirname,

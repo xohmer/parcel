@@ -9,12 +9,12 @@ const EADDRINUSE = new Error();
 EADDRINUSE.code = 'EADDRINUSE';
 
 describe('customErrors', () => {
-  it('should include port in server errors', () => {
+  test('should include port in server errors', () => {
     const msg = customErrors.serverErrors(EACCES, port);
     assert(msg.includes(port));
   });
 
-  it('should handle known server errors', () => {
+  test('should handle known server errors', () => {
     let msg = customErrors.serverErrors(EACCES, port);
     assert(msg.includes(`don't have access`));
 
@@ -22,7 +22,7 @@ describe('customErrors', () => {
     assert(msg.includes('already'));
   });
 
-  it('should handled unknown server errors', () => {
+  test('should handled unknown server errors', () => {
     let msg = customErrors.serverErrors(new Error(), port);
     assert(msg.includes(port));
   });

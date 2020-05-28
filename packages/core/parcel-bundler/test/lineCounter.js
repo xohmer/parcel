@@ -3,8 +3,8 @@ const path = require('path');
 const assert = require('assert');
 const lineCounter = require('../src/utils/lineCounter');
 
-describe('line counter', async function() {
-  it('counts number of lines of a string', () => {
+describe('line counter', async () => {
+  test('counts number of lines of a string', () => {
     const input = ` line 1
       line 2
       line 3`;
@@ -12,7 +12,7 @@ describe('line counter', async function() {
     assert(lineCounter(input) === 3);
   });
 
-  it('counts number of lines of a file from disk', async function() {
+  test('counts number of lines of a file from disk', async () => {
     const input = (
       await fs.readFile(path.join(__dirname, 'lineCounter.js'))
     ).toString();

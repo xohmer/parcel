@@ -9,7 +9,7 @@ import {
 } from '@parcel/test-utils';
 
 describe.skip('glsl', function() {
-  it('should support requiring GLSL files via glslify', async function() {
+  test('should support requiring GLSL files via glslify', async () => {
     let b = await bundle(path.join(__dirname, '/integration/glsl/index.js'));
 
     await assertBundleTree(b, {

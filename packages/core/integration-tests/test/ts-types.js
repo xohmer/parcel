@@ -2,8 +2,8 @@ import assert from 'assert';
 import path from 'path';
 import {bundle, assertBundles, outputFS, inputFS} from '@parcel/test-utils';
 
-describe('typescript types', function() {
-  it('should generate a typescript declaration file', async function() {
+describe('typescript types', () => {
+  test('should generate a typescript declaration file', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/ts-types/main/index.ts'),
     );
@@ -32,7 +32,7 @@ describe('typescript types', function() {
     assert.equal(dist, expected);
   });
 
-  it('should generate ts declarations with imports', async function() {
+  test('should generate ts declarations with imports', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/ts-types/importing/index.ts'),
     );
@@ -73,7 +73,7 @@ describe('typescript types', function() {
     assert.equal(dist, expected);
   });
 
-  it('should generate ts declarations with exports', async function() {
+  test('should generate ts declarations with exports', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/ts-types/exporting/index.ts'),
     );
@@ -114,7 +114,7 @@ describe('typescript types', function() {
     assert.equal(dist, expected);
   });
 
-  it('should generate ts declarations with externals', async function() {
+  test('should generate ts declarations with externals', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/ts-types/externals/index.tsx'),
     );
@@ -146,7 +146,7 @@ describe('typescript types', function() {
     assert.equal(dist, expected);
   });
 
-  it('should remove private properties', async function() {
+  test('should remove private properties', async () => {
     await bundle(
       path.join(__dirname, '/integration/ts-types/private/index.ts'),
     );
@@ -164,7 +164,7 @@ describe('typescript types', function() {
     assert.equal(dist, expected);
   });
 
-  it('should not throw errors on typing of a callback which returns a promise or value', async function() {
+  test('should not throw errors on typing of a callback which returns a promise or value', async () => {
     await bundle(
       path.join(__dirname, '/integration/ts-types/promise-or-value/index.ts'),
     );

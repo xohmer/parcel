@@ -3,8 +3,8 @@ import Module from 'module';
 import path from 'path';
 import {bundle, run, assertBundles} from '@parcel/test-utils';
 
-describe('pnp', function() {
-  it('should defer to the pnp resolution when needed', async function() {
+describe('pnp', () => {
+  test('should defer to the pnp resolution when needed', async () => {
     let dir = path.join(__dirname, 'integration/pnp-require');
 
     let origPnpVersion = process.versions.pnp;

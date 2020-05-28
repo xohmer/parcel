@@ -18,12 +18,12 @@ const config = {
   filePath: require.resolve('@parcel/config-default'),
 };
 
-describe('svg', function() {
+describe('svg', () => {
   afterEach(async () => {
     await removeDistDirectory();
   });
 
-  it('should support transforming SVGs to react components', async function() {
+  test('should support transforming SVGs to react components', async () => {
     await bundle(path.join(__dirname, '/integration/svg/index.js'), {
       defaultConfig: config,
     });

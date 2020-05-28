@@ -5,7 +5,7 @@ import randomInt from 'random-int';
 import PromiseQueue from '../src/PromiseQueue';
 
 describe('PromiseQueue', () => {
-  it('run() should resolve when all async functions in queue have completed', async () => {
+  test('run() should resolve when all async functions in queue have completed', async () => {
     let queue = new PromiseQueue();
 
     let someBooleanToBeChanged = false;
@@ -18,7 +18,7 @@ describe('PromiseQueue', () => {
     assert(someBooleanToBeChanged);
   });
 
-  it('run() should reject if any of the async functions in the queue failed', async () => {
+  test('run() should reject if any of the async functions in the queue failed', async () => {
     let error = new Error('some failure');
     try {
       let queue = new PromiseQueue();
@@ -33,13 +33,13 @@ describe('PromiseQueue', () => {
     }
   });
 
-  it('.run() should instantly resolve when the queue is empty', async () => {
+  test('.run() should instantly resolve when the queue is empty', async () => {
     let queue = new PromiseQueue();
     await queue.run();
     // no need to assert, test will hang or throw an error if condition fails
   });
 
-  it(".add() should resolve with the same result when the passed in function's promise resolves", async () => {
+  test(".add() should resolve with the same result when the passed in function's promise resolves", async () => {
     let queue = new PromiseQueue();
     let promise = queue.add(() => Promise.resolve(42));
     await queue.run();
@@ -47,7 +47,7 @@ describe('PromiseQueue', () => {
     assert.equal(result, 42);
   });
 
-  it(".add() should reject with the same error when the passed in function's promise rejects", async () => {
+  test(".add() should reject with the same error when the passed in function's promise rejects", async () => {
     let queue = new PromiseQueue();
     let error = new Error('Oh no!');
     let promise = queue.add(() => Promise.reject(error));
@@ -55,7 +55,7 @@ describe('PromiseQueue', () => {
     await promise.then(null, e => assert.equal(e, error));
   });
 
-  it('constructor() should allow for configuration of max concurrent running functions', async () => {
+  test('constructor() should allow for configuration of max concurrent running functions', async () => {
     const maxConcurrent = 5;
     const queue = new PromiseQueue({maxConcurrent});
     let running = 0;

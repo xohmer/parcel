@@ -5,7 +5,7 @@ import codeframe from '../src/codeframe';
 const LINE_END = '\n';
 
 describe('codeframe', () => {
-  it('should create a codeframe', () => {
+  test('should create a codeframe', () => {
     let codeframeString = codeframe(
       'hello world',
       [
@@ -38,7 +38,7 @@ describe('codeframe', () => {
     assert.equal(lines[1], '>   | ^ ^^^');
   });
 
-  it('should create a codeframe with multiple lines', () => {
+  test('should create a codeframe with multiple lines', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe',
       [
@@ -73,7 +73,7 @@ describe('codeframe', () => {
     assert.equal(lines[3], '>   | ^^^^^^^^^^');
   });
 
-  it('should handle unordered overlapping highlights properly', () => {
+  test('should handle unordered overlapping highlights properly', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe',
       [
@@ -118,7 +118,7 @@ describe('codeframe', () => {
     assert.equal(lines[3], '>   | ^^^^^^^^^^');
   });
 
-  it('should handle partial overlapping highlights properly', () => {
+  test('should handle partial overlapping highlights properly', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe',
       [
@@ -163,7 +163,7 @@ describe('codeframe', () => {
     assert.equal(lines[3], '>   | ^^^^^^^^^^^^');
   });
 
-  it('should be able to render inline messages', () => {
+  test('should be able to render inline messages', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe',
       [
@@ -188,7 +188,7 @@ describe('codeframe', () => {
     assert.equal(lines[2], '  2 | Enjoy this nice codeframe');
   });
 
-  it('should only render last inline message of a column', () => {
+  test('should only render last inline message of a column', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe',
       [
@@ -224,7 +224,7 @@ describe('codeframe', () => {
     assert.equal(lines[2], '  2 | Enjoy this nice codeframe');
   });
 
-  it('should only render last inline message of a column with space', () => {
+  test('should only render last inline message of a column with space', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe',
       [
@@ -260,7 +260,7 @@ describe('codeframe', () => {
     assert.equal(lines[2], '  2 | Enjoy this nice codeframe');
   });
 
-  it('should only render last inline message of a column with multiple lines and space', () => {
+  test('should only render last inline message of a column with multiple lines and space', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe\nThis is another line',
       [
@@ -310,7 +310,7 @@ describe('codeframe', () => {
     assert.equal(lines[5], '>   | ^^^^^^^ message line 2');
   });
 
-  it('should only render last inline message of a column with multiple lines and space', () => {
+  test('should only render last inline message of a column with multiple lines and space', () => {
     let codeframeString = codeframe(
       'hello world\nEnjoy this nice codeframe\nThis is another line',
       [
@@ -360,7 +360,7 @@ describe('codeframe', () => {
     assert.equal(lines[5], '>   | ^^^^^^^ message line 2');
   });
 
-  it('should properly use padding', () => {
+  test('should properly use padding', () => {
     let codeframeString = codeframe(
       'test\n'.repeat(100),
       [
@@ -393,7 +393,7 @@ describe('codeframe', () => {
     assert.equal(lines[7], '  9 | test');
   });
 
-  it('should properly pad numbers', () => {
+  test('should properly pad numbers', () => {
     let codeframeString = codeframe('test\n'.repeat(1000), [
       {
         start: {
@@ -425,7 +425,7 @@ describe('codeframe', () => {
     assert.equal(lines[6], '  102 | test');
   });
 
-  it('should properly pad numbers', () => {
+  test('should properly pad numbers', () => {
     let codeframeString = codeframe('test\n'.repeat(1000), [
       {
         start: {
@@ -457,7 +457,7 @@ describe('codeframe', () => {
     assert.equal(lines[10], '  14 | test');
   });
 
-  it('should properly use maxLines', () => {
+  test('should properly use maxLines', () => {
     let codeframeString = codeframe(
       'test\n'.repeat(100),
       [
@@ -497,7 +497,7 @@ describe('codeframe', () => {
     assert.equal(lines[12], '>    | ^^^^');
   });
 
-  it('should be able to handle tabs', () => {
+  test('should be able to handle tabs', () => {
     let codeframeString = codeframe(
       'hel\tlo wor\tld\nEnjoy thi\ts nice cod\teframe',
       [
@@ -522,7 +522,7 @@ describe('codeframe', () => {
     assert.equal(lines[2], '  2 | Enjoy thi  s nice cod  eframe');
   });
 
-  it('should be able to handle tabs with multiple highlights', () => {
+  test('should be able to handle tabs with multiple highlights', () => {
     let codeframeString = codeframe(
       'hel\tlo wor\tld\nEnjoy thi\ts nice cod\teframe',
       [
@@ -558,7 +558,7 @@ describe('codeframe', () => {
     assert.equal(lines[2], '  2 | Enjoy thi  s nice cod  eframe');
   });
 
-  it('multiline highlights with tabs', () => {
+  test('multiline highlights with tabs', () => {
     let codeframeString = codeframe(
       'hel\tlo wor\tld\nEnjoy thi\ts nice cod\teframe\ntest',
       [
@@ -586,7 +586,7 @@ describe('codeframe', () => {
     assert.equal(lines[5], '>   | ^^ test');
   });
 
-  it('Should truncate long lines and print message', () => {
+  test('Should truncate long lines and print message', () => {
     let originalLine = 'hello world '.repeat(1000);
     let codeframeString = codeframe(
       originalLine,
@@ -612,7 +612,7 @@ describe('codeframe', () => {
     assert.equal(lines[1], '>   |      ^^^^^^^^^^^^^^ This is a message');
   });
 
-  it('Truncation across multiple lines', () => {
+  test('Truncation across multiple lines', () => {
     let originalLine =
       'hello world '.repeat(100) + '\n' + 'new line '.repeat(100);
     let codeframeString = codeframe(
@@ -652,7 +652,7 @@ describe('codeframe', () => {
     assert.equal(lines[3], '>   |  ^^^^^^^^^^^^^^^^^^ This is the second line');
   });
 
-  it('Truncation across various types and positions of highlights', () => {
+  test('Truncation across various types and positions of highlights', () => {
     let originalLine =
       'hello world '.repeat(100) + '\n' + 'new line '.repeat(100);
     let codeframeString = codeframe(
@@ -713,7 +713,7 @@ describe('codeframe', () => {
     assert.equal(lines[3], '>   |  ^^^^ This is the second line');
   });
 
-  it('Multi-line highlight w/ truncation', () => {
+  test('Multi-line highlight w/ truncation', () => {
     let originalLine =
       'hello world '.repeat(100) + '\n' + 'new line '.repeat(100);
     let codeframeString = codeframe(

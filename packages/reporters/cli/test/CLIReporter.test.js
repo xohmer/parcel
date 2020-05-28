@@ -59,7 +59,7 @@ describe('CLIReporter', () => {
     _setStdio(originalStdout, originalStderr);
   });
 
-  it('writes log, info, success, and verbose log messages to stdout', async () => {
+  test('writes log, info, success, and verbose log messages to stdout', async () => {
     let options = {
       ...EMPTY_OPTIONS,
       logLevel: 'verbose',
@@ -96,7 +96,7 @@ describe('CLIReporter', () => {
     assert.equal(stdoutOutput, 'test: info\nsuccess\ntest: verbose\n');
   });
 
-  it('writes errors and warnings to stderr', async () => {
+  test('writes errors and warnings to stderr', async () => {
     await _report(
       {
         type: 'log',
@@ -128,7 +128,7 @@ describe('CLIReporter', () => {
     assert.equal(stderrOutput, 'test: error\ntest: warn\n');
   });
 
-  it('prints errors nicely', async () => {
+  test('prints errors nicely', async () => {
     await _report(
       {
         type: 'log',
@@ -161,12 +161,12 @@ describe('CLIReporter', () => {
     assert(stderrOutput.includes('test: warn\n'));
   });
 
-  it('writes buildProgress messages to stdout on the default loglevel', async () => {
+  test('writes buildProgress messages to stdout on the default loglevel', async () => {
     await _report({type: 'buildProgress', phase: 'bundling'}, EMPTY_OPTIONS);
     assert.equal(stdoutOutput, 'Bundling...\n');
   });
 
-  it('writes buildSuccess messages to stdout on the default loglevel', async () => {
+  test('writes buildSuccess messages to stdout on the default loglevel', async () => {
     await _report({type: 'buildProgress', phase: 'bundling'}, EMPTY_OPTIONS);
     assert.equal(stdoutOutput, 'Bundling...\n');
   });

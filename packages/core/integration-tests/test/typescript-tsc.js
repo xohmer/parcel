@@ -13,8 +13,8 @@ const config = {
   filePath: configPath,
 };
 
-describe('typescript tsc', function() {
-  it('should support loading tsconfig.json', async () => {
+describe('typescript tsc', () => {
+  test('should support loading tsconfig.json', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/typescript-config/index.ts'),
       {config},
@@ -27,7 +27,7 @@ describe('typescript tsc', function() {
     assert(!js.includes('/* test comment */'));
   });
 
-  it('should support loading tsconfig.json with extends', async () => {
+  test('should support loading tsconfig.json with extends', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/typescript-config-extends/index.ts'),
       {config},

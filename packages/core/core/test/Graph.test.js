@@ -6,27 +6,27 @@ import sinon from 'sinon';
 import Graph from '../src/Graph';
 
 describe('Graph', () => {
-  it('constructor should initialize an empty graph', () => {
+  test('constructor should initialize an empty graph', () => {
     let graph = new Graph();
     assert.deepEqual(graph.nodes, new Map());
     assert.deepEqual(graph.getAllEdges(), []);
   });
 
-  it('addNode should add a node to the graph', () => {
+  test('addNode should add a node to the graph', () => {
     let graph = new Graph();
     let node = {id: 'a', value: 'a'};
     graph.addNode(node);
     assert.equal(graph.nodes.get(node.id), node);
   });
 
-  it("errors when removeNode is called with a node that doesn't belong", () => {
+  test("errors when removeNode is called with a node that doesn't belong", () => {
     let graph = new Graph();
     assert.throws(() => {
       graph.removeNode({id: 'dne', value: null});
     }, /Does not have node/);
   });
 
-  it('errors when traversing a graph with no root', () => {
+  test('errors when traversing a graph with no root', () => {
     let graph = new Graph();
 
     assert.throws(() => {
@@ -34,7 +34,7 @@ describe('Graph', () => {
     }, /A start node is required to traverse/);
   });
 
-  it("errors when traversing a graph with a startNode that doesn't belong", () => {
+  test("errors when traversing a graph with a startNode that doesn't belong", () => {
     let graph = new Graph();
 
     assert.throws(() => {
@@ -42,14 +42,14 @@ describe('Graph', () => {
     }, /Does not have node/);
   });
 
-  it("errors if replaceNodesConnectedTo is called with a node that doesn't belong", () => {
+  test("errors if replaceNodesConnectedTo is called with a node that doesn't belong", () => {
     let graph = new Graph();
     assert.throws(() => {
       graph.replaceNodesConnectedTo({id: 'dne', value: null}, []);
     }, /Does not have node/);
   });
 
-  it("errors when adding an edge to a node that doesn't exist", () => {
+  test("errors when adding an edge to a node that doesn't exist", () => {
     let graph = new Graph();
     graph.addNode({id: 'foo', value: null});
     assert.throws(() => {
@@ -57,7 +57,7 @@ describe('Graph', () => {
     }, /"to" node 'dne' not found/);
   });
 
-  it("errors when adding an edge from a node that doesn't exist", () => {
+  test("errors when adding an edge from a node that doesn't exist", () => {
     let graph = new Graph();
     graph.addNode({id: 'foo', value: null});
     assert.throws(() => {
@@ -65,7 +65,7 @@ describe('Graph', () => {
     }, /"from" node 'dne' not found/);
   });
 
-  it('hasNode should return a boolean based on whether the node exists in the graph', () => {
+  test('hasNode should return a boolean based on whether the node exists in the graph', () => {
     let graph = new Graph();
     let node = {id: 'a', value: 'a'};
     graph.addNode(node);
@@ -73,7 +73,7 @@ describe('Graph', () => {
     assert(!graph.hasNode('b'));
   });
 
-  it('addEdge should add an edge to the graph', () => {
+  test('addEdge should add an edge to the graph', () => {
     let graph = new Graph();
     graph.addNode({id: 'a', value: null});
     graph.addNode({id: 'b', value: null});
@@ -81,7 +81,7 @@ describe('Graph', () => {
     assert(graph.hasEdge('a', 'b'));
   });
 
-  it('isOrphanedNode should return true or false if the node is orphaned or not', () => {
+  test('isOrphanedNode should return true or false if the node is orphaned or not', () => {
     let graph = new Graph();
     let nodeA = {id: 'a', value: 'a'};
     let nodeB = {id: 'b', value: 'b'};
@@ -96,7 +96,7 @@ describe('Graph', () => {
     assert(!graph.isOrphanedNode(nodeC));
   });
 
-  it('removeEdge should prune the graph at that edge', () => {
+  test('removeEdge should prune the graph at that edge', () => {
     //         a
     //        / \
     //       b - d
@@ -120,7 +120,7 @@ describe('Graph', () => {
     assert.deepEqual(graph.getAllEdges(), [{from: 'a', to: 'd', type: null}]);
   });
 
-  it('removing a node recursively deletes orphaned nodes', () => {
+  test('removing a node recursively deletes orphaned nodes', () => {
     // before:
     //       a
     //      / \
@@ -166,7 +166,7 @@ describe('Graph', () => {
     ]);
   });
 
-  it('removing a node recursively deletes orphaned nodes if there is no path to the root', () => {
+  test('removing a node recursively deletes orphaned nodes if there is no path to the root', () => {
     // before:
     //       a
     //      / \
@@ -213,7 +213,7 @@ describe('Graph', () => {
     ]);
   });
 
-  it('removing an edge to a node that cycles does not remove it if there is a path to the root', () => {
+  test('removing an edge to a node that cycles does not remove it if there is a path to the root', () => {
     //        a
     //        |
     //        b <----
@@ -250,7 +250,7 @@ describe('Graph', () => {
     ]);
   });
 
-  it('removing a node with only one inbound edge does not cause it to be removed as an orphan', () => {
+  test('removing a node with only one inbound edge does not cause it to be removed as an orphan', () => {
     let graph = new Graph();
 
     graph.setRootNode({id: 'a', value: 'a'});
@@ -267,7 +267,7 @@ describe('Graph', () => {
     }
   });
 
-  it("replaceNodesConnectedTo should update a node's downstream nodes", () => {
+  test("replaceNodesConnectedTo should update a node's downstream nodes", () => {
     let graph = new Graph();
     let nodeA = graph.addNode({id: 'a', value: 'a'});
     let nodeB = graph.addNode({id: 'b', value: 'b'});
@@ -288,7 +288,7 @@ describe('Graph', () => {
     ]);
   });
 
-  it('traverses along edge types if a filter is given', () => {
+  test('traverses along edge types if a filter is given', () => {
     let graph = new Graph();
     graph.addNode({id: 'a', value: 'a'});
     graph.addNode({id: 'b', value: 'b'});

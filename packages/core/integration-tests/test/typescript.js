@@ -20,7 +20,7 @@ const tscConfig = {
   filePath: configPath,
 };
 
-describe('typescript', function() {
+describe('typescript', () => {
   // This tests both the Babel transformer implementation of typescript (which
   // powers typescript by default in Parcel) as well as through the Typescript
   // tsc transformer. Use a null config to indicate the default config, and the
@@ -31,7 +31,7 @@ describe('typescript', function() {
     null /* default config -- testing babel typescript */,
     tscConfig,
   ]) {
-    it('should produce a ts bundle using ES6 imports', async function() {
+    test('should produce a ts bundle using ES6 imports', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript/index.ts'),
         {config},
@@ -49,7 +49,7 @@ describe('typescript', function() {
       assert.equal(output.count(), 3);
     });
 
-    it('should produce a ts bundle using commonJS require', async function() {
+    test('should produce a ts bundle using commonJS require', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript-require/index.ts'),
         {config},
@@ -67,7 +67,7 @@ describe('typescript', function() {
       assert.equal(output.count(), 3);
     });
 
-    it('should support json require', async function() {
+    test('should support json require', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript-json/index.ts'),
       );
@@ -80,7 +80,7 @@ describe('typescript', function() {
       assert.equal(output.count(), 3);
     });
 
-    it('should support env variables', async function() {
+    test('should support env variables', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript-env/index.ts'),
         {config},
@@ -98,7 +98,7 @@ describe('typescript', function() {
       assert.equal(output.env(), 'test');
     });
 
-    it('should support importing a URL to a raw asset', async function() {
+    test('should support importing a URL to a raw asset', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript-raw/index.ts'),
         {config},
@@ -132,7 +132,7 @@ describe('typescript', function() {
       );
     });
 
-    it('should minify with minify enabled', async function() {
+    test('should minify with minify enabled', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript-require/index.ts'),
         {
@@ -156,7 +156,7 @@ describe('typescript', function() {
       assert(!js.includes('local.a'));
     });
 
-    it('should support compiling JSX', async function() {
+    test('should support compiling JSX', async () => {
       await bundle(
         path.join(__dirname, '/integration/typescript-jsx/index.tsx'),
         {config},
@@ -169,7 +169,7 @@ describe('typescript', function() {
       assert(file.includes('React.createElement("div"'));
     });
 
-    it('should use esModuleInterop by default', async function() {
+    test('should use esModuleInterop by default', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/typescript-interop/index.ts'),
         {config},
@@ -187,7 +187,7 @@ describe('typescript', function() {
       assert.equal(output.test(), 'test passed');
     });
 
-    it('fs.readFileSync should inline a file as a string', async function() {
+    test('fs.readFileSync should inline a file as a string', async () => {
       if (config != null) {
         return;
       }

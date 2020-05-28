@@ -73,7 +73,7 @@ function http2Get(file, port) {
   });
 }
 
-describe('server', function() {
+describe('server', () => {
   let subscription;
 
   afterEach(async () => {
@@ -83,7 +83,7 @@ describe('server', function() {
     subscription = null;
   });
 
-  it('should serve files', async function() {
+  test('should serve files', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -107,7 +107,7 @@ describe('server', function() {
     assert.equal(data, distFile);
   });
 
-  it('should serve source files', async function() {
+  test('should serve source files', async () => {
     let port = await getPort();
     let inputPath = path.join(__dirname, '/integration/commonjs/index.js');
     let b = bundler(inputPath, {
@@ -132,7 +132,7 @@ describe('server', function() {
     assert.equal(data, inputFile);
   });
 
-  it('should serve a default page if the main bundle is an HTML asset', async function() {
+  test('should serve a default page if the main bundle is an HTML asset', async () => {
     let port = await getPort();
     let inputPath = path.join(__dirname, '/integration/html/index.html');
     let b = bundler(inputPath, {
@@ -160,7 +160,7 @@ describe('server', function() {
     assert.equal(data, outputFile);
   });
 
-  it('should serve a default page if the main bundle is an HTML asset with package.json#source', async function() {
+  test('should serve a default page if the main bundle is an HTML asset with package.json#source', async () => {
     let port = await getPort();
     let inputPath = path.join(__dirname, '/integration/html-pkg-source/');
     let b = bundler(inputPath, {
@@ -189,7 +189,7 @@ describe('server', function() {
     assert.equal(data, outputFile);
   });
 
-  it('should serve a 404 if the file does not exist', async function() {
+  test('should serve a 404 if the file does not exist', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -213,7 +213,7 @@ describe('server', function() {
     assert.equal(statusCode, 404);
   });
 
-  it('should serve a 500 if the bundler errored', async function() {
+  test('should serve a 500 if the bundler errored', async () => {
     let port = await getPort();
     let inputDir = path.join(__dirname, '/input/server-500');
     await ncp(path.join(__dirname, '/integration/babel'), inputDir);
@@ -249,7 +249,7 @@ describe('server', function() {
     assert.equal(statusCode, 500);
   });
 
-  it('should support HTTP/2', async function() {
+  test('should support HTTP/2', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -271,7 +271,7 @@ describe('server', function() {
     );
   });
 
-  it('should support HTTP/2 via custom certificate', async function() {
+  test('should support HTTP/2 via custom certificate', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -296,7 +296,7 @@ describe('server', function() {
     );
   });
 
-  it('should support HTTPS', async function() {
+  test('should support HTTPS', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -318,7 +318,7 @@ describe('server', function() {
     );
   });
 
-  it('should support HTTPS via custom certificate', async function() {
+  test('should support HTTPS via custom certificate', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -343,7 +343,7 @@ describe('server', function() {
     );
   });
 
-  it('should support setting a public url', async function() {
+  test('should support setting a public url', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -366,7 +366,7 @@ describe('server', function() {
     );
   });
 
-  it('should work with query parameters that contain a dot', async function() {
+  test('should work with query parameters that contain a dot', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/commonjs/index.js'), {
       config,
@@ -388,7 +388,7 @@ describe('server', function() {
     );
   });
 
-  it('should work with paths that contain a dot', async function() {
+  test('should work with paths that contain a dot', async () => {
     let port = await getPort();
     let b = bundler(path.join(__dirname, '/integration/html/index.html'), {
       config,

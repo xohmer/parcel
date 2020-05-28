@@ -5,7 +5,7 @@ const Asset = require('../src/Asset');
 const {bundle} = require('@parcel/test-utils');
 
 describe('Asset', () => {
-  it('should include default implementations', async () => {
+  test('should include default implementations', async () => {
     const a = new Asset(__filename, {rootDir: '/root/dir'});
     Object.assign(a, {
       type: 'type',
@@ -22,7 +22,7 @@ describe('Asset', () => {
     assert.equal(a.generateErrorMessage(err), err);
   });
 
-  it.skip('should support overriding the filename of the root bundle', async function() {
+  test.skip('should support overriding the filename of the root bundle', async function() {
     const outFile = 'custom-out-file.html';
     await bundle(path.join(__dirname, '/integration/html/index.html'), {
       outFile,
@@ -31,7 +31,7 @@ describe('Asset', () => {
     assert(await fs.exists(__dirname, `/dist/${outFile}`));
   });
 
-  it('should have backward compatibility for package field', function() {
+  test('should have backward compatibility for package field', () => {
     let a = new Asset(__filename, {rootDir: '/root/dir'});
     assert.equal(a.package.name, 'parcel-bundler');
   });
@@ -50,20 +50,20 @@ describe('Asset', () => {
     };
     const asset = new Asset('test', options);
 
-    it('should ignore urls', () => {
+    test('should ignore urls', () => {
       const url = 'https://parceljs.org/assets.html';
       assert.strictEqual(asset.addURLDependency(url), url);
     });
 
-    it('should ignore empty string', () => {
+    test('should ignore empty string', () => {
       assert.strictEqual(asset.addURLDependency(''), '');
     });
 
-    it('should generate bundle name', () => {
+    test('should generate bundle name', () => {
       assert.strictEqual(asset.addURLDependency('foo'), bundleName);
     });
 
-    it('should preserve query and hash', () => {
+    test('should preserve query and hash', () => {
       assert.strictEqual(
         asset.addURLDependency('foo#bar'),
         `${bundleName}#bar`,
@@ -78,14 +78,14 @@ describe('Asset', () => {
       );
     });
 
-    it('should resolve slash', () => {
+    test('should resolve slash', () => {
       asset.dependencies.clear();
       assert.strictEqual(asset.addURLDependency('/foo'), bundleName);
       const key = path.resolve('/root/dir/foo');
       assert(asset.dependencies.has(key));
     });
 
-    it('should resolve tilde', () => {
+    test('should resolve tilde', () => {
       asset.dependencies.clear();
       assert.strictEqual(asset.addURLDependency('~/foo'), bundleName);
       const key = path.normalize('/root/dir/foo');

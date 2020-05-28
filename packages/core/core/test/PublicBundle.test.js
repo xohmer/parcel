@@ -37,14 +37,14 @@ describe('Public Bundle', () => {
     bundleGraph = new BundleGraph({graph: new Graph()});
   });
 
-  it('returns the same public Bundle given an internal bundle', () => {
+  test('returns the same public Bundle given an internal bundle', () => {
     assert.equal(
       new Bundle(internalBundle, bundleGraph, DEFAULT_OPTIONS),
       new Bundle(internalBundle, bundleGraph, DEFAULT_OPTIONS),
     );
   });
 
-  it('returns the same public NamedBundle given an internal bundle', () => {
+  test('returns the same public NamedBundle given an internal bundle', () => {
     assert.equal(
       new NamedBundle(internalBundle, bundleGraph, DEFAULT_OPTIONS),
       new NamedBundle(internalBundle, bundleGraph, DEFAULT_OPTIONS),

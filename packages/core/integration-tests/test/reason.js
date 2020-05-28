@@ -3,7 +3,7 @@ import path from 'path';
 import {bundle, run} from '@parcel/test-utils';
 
 describe.skip('reason', function() {
-  it('should produce a bundle', async function() {
+  test('should produce a bundle', async () => {
     let b = await bundle(path.join(__dirname, '/integration/reason/index.js'));
 
     assert.equal(b.assets.size, 2);

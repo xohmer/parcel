@@ -6,15 +6,12 @@ import config from '../';
 import packageJson from '../package.json';
 
 describe('@parcel/config-default', () => {
-  let packageJsonDependencyNames: Set<string>;
-  let configPackageReferences: Set<string>;
-
-  before(() => {
-    packageJsonDependencyNames = new Set(
-      Object.keys(packageJson.dependencies || {}),
-    );
-    configPackageReferences = collectConfigPackageReferences(config);
-  });
+  let packageJsonDependencyNames: Set<string> = new Set(
+    Object.keys(packageJson.dependencies || {}),
+  );
+  let configPackageReferences: Set<string> = collectConfigPackageReferences(
+    config,
+  );
 
   describe('package.json', () => {
     it('includes every package referenced in the config', () => {

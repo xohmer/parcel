@@ -3,7 +3,7 @@ import path from 'path';
 import {bundle, assertBundleTree, run, outputFS} from '@parcel/test-utils';
 
 describe.skip('vue', function() {
-  it('should produce a basic vue bundle', async function() {
+  test('should produce a basic vue bundle', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-basic/Basic.vue'),
     );
@@ -28,7 +28,7 @@ describe.skip('vue', function() {
     assert.deepEqual(output.data(), {msg: 'Hello from Component A!'});
   });
 
-  it('should produce a vue bundle with dependencies', async function() {
+  test('should produce a vue bundle with dependencies', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-dependencies/App.vue'),
     );
@@ -56,7 +56,7 @@ describe.skip('vue', function() {
     assert.deepEqual(output.data(), {msg: 'Welcome to Your Vue.js App!'});
   });
 
-  it('should produce a vue bundle using preprocessors', async function() {
+  test('should produce a vue bundle using preprocessors', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-preprocessors/pre-processors.vue'),
     );
@@ -88,7 +88,7 @@ describe.skip('vue', function() {
     assert(contents.includes('color: green'));
   });
 
-  it('should produce a vue bundle using a functional component', async function() {
+  test('should produce a vue bundle using a functional component', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-functional/functional.vue'),
     );
@@ -120,7 +120,7 @@ describe.skip('vue', function() {
     assert(contents.includes('.' + ctx.$style.red));
   });
 
-  it('should produce a vue bundle using scoped styles', async function() {
+  test('should produce a vue bundle using scoped styles', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-scoped/App.vue'),
     );
@@ -151,7 +151,7 @@ describe.skip('vue', function() {
     assert(contents.includes(`.test[${output._scopeId}]`));
   });
 
-  it('should produce a vue bundle using CSS modules', async function() {
+  test('should produce a vue bundle using CSS modules', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-css-modules/App.vue'),
     );
@@ -186,7 +186,7 @@ describe.skip('vue', function() {
     assert(contents.includes('.' + ctx.$style.red));
   });
 
-  it('should bundle nested components dynamically', async function() {
+  test('should bundle nested components dynamically', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-nested-components/testcomp.vue'),
     );
@@ -227,7 +227,7 @@ describe.skip('vue', function() {
     assert.equal(typeof output.components.InsideComp, 'function');
   });
 
-  it('should produce a basic production vue bundle', async function() {
+  test('should produce a basic production vue bundle', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/vue-basic/Basic.vue'),
       {

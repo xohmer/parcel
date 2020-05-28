@@ -14,7 +14,7 @@ export function Foo(x) {
 const plugin = require.resolve('../src/index.js');
 
 describe('@parcel/plugin-transform-runtime', () => {
-  it('compiles against targets passed through caller with env = esmodule', () => {
+  test('compiles against targets passed through caller with env = esmodule', () => {
     let {code: transformed} = babel.transformSync(input, {
       configFile: false,
       presets: [preset],
@@ -31,7 +31,7 @@ describe('@parcel/plugin-transform-runtime', () => {
     assert(transformed.includes('...x'));
   });
 
-  it('compiles against targets passed through caller with no env', () => {
+  test('compiles against targets passed through caller with no env', () => {
     let {code: transformed} = babel.transformSync(input, {
       configFile: false,
       presets: [preset],

@@ -21,7 +21,7 @@
     "lint:readme": "node scripts/validate-readme-toc.js",
     "precommit": "lint-staged",
     "prepublishOnly": "yarn build",
-    "test:unit": "cross-env NODE_ENV=test mocha",
+    "test:unit": "cross-env NODE_ENV=test jest",
     "test:integration": "yarn workspace @parcel/integration-tests test",
     "test:integration-ci": "yarn workspace @parcel/integration-tests test-ci",
     "test": "yarn test:unit && yarn test:integration",

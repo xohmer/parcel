@@ -6,14 +6,14 @@ const path = require('path');
 
 const inputDirPath = path.join(__dirname, '/input');
 
-describe('autoinstall', function() {
-  beforeEach(async function() {
+describe('autoinstall', () => {
+  beforeEach(async () => {
     // Setup (clear the input dir and move integration test in)
     await fs.rimraf(inputDirPath, {});
     await ncp(path.join(__dirname, '/integration/babel-default'), inputDirPath);
   });
 
-  it('should install lodash using npm and save dev dependency to package.json', async function() {
+  test('should install lodash using npm and save dev dependency to package.json', async () => {
     let pkgName = 'lodash';
 
     await install([pkgName], inputDirPath + '/test.js', {
@@ -29,7 +29,7 @@ describe('autoinstall', function() {
     assert(pkg.devDependencies[pkgName], 'lodash is saved as a dev dep');
   });
 
-  it('should install lodash using yarn and save dev dependency to package.json', async function() {
+  test('should install lodash using yarn and save dev dependency to package.json', async () => {
     let pkgName = 'lodash';
 
     await install([pkgName], inputDirPath + '/test.js', {
@@ -45,7 +45,7 @@ describe('autoinstall', function() {
     assert(pkg.devDependencies[pkgName], 'lodash is saved as a dev dep');
   });
 
-  afterEach(async function() {
+  afterEach(async () => {
     await fs.rimraf(inputDirPath);
   });
 });

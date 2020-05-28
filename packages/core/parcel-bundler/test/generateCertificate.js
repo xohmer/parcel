@@ -18,7 +18,7 @@ describe('generateCertificate', () => {
     await fs.rimraf(inputPath);
   });
 
-  it('should support loading cached certificate', async () => {
+  test('should support loading cached certificate', async () => {
     await ncp(path.join(__dirname, '/integration/https'), cachePath);
 
     const key = await fs.readFile(path.join(cachePath, 'private.pem'));
@@ -30,7 +30,7 @@ describe('generateCertificate', () => {
     assert.equal(generated.key.toString(), key.toString());
   });
 
-  it('should support caching generated certificate', async () => {
+  test('should support caching generated certificate', async () => {
     generateCertificate(cacheOptions);
 
     assert(await fs.exists(path.join(cachePath, 'private.pem')));

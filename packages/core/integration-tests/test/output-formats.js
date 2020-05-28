@@ -6,9 +6,9 @@ import {bundle as _bundle, outputFS, run} from '@parcel/test-utils';
 const bundle = (name, opts = {}) =>
   _bundle(name, Object.assign({scopeHoist: true}, opts));
 
-describe('output formats', function() {
-  describe('commonjs', function() {
-    it('should support commonjs output (exports)', async function() {
+describe('output formats', () => {
+  describe('commonjs', () => {
+    test('should support commonjs output (exports)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs/exports.js'),
       );
@@ -20,7 +20,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 5);
     });
 
-    it('should support commonjs output (module.exports)', async function() {
+    test('should support commonjs output (module.exports)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs/module-exports.js'),
       );
@@ -31,7 +31,7 @@ describe('output formats', function() {
       assert.equal(await run(b), 5);
     });
 
-    it('should support commonjs output from esmodule input', async function() {
+    test('should support commonjs output from esmodule input', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-commonjs/a.js'),
       );
@@ -42,7 +42,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 5);
     });
 
-    it('should support commonjs output from esmodule input (re-export rename)', async function() {
+    test('should support commonjs output from esmodule input (re-export rename)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -56,7 +56,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).default, 2);
     });
 
-    it('should support commonjs output from esmodule input', async function() {
+    test('should support commonjs output from esmodule input', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -72,7 +72,7 @@ describe('output formats', function() {
       });
     });
 
-    it('should support commonjs output with external modules (require)', async function() {
+    test('should support commonjs output with external modules (require)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -86,7 +86,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 3);
     });
 
-    it('should support commonjs output with external modules (named import)', async function() {
+    test('should support commonjs output with external modules (named import)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-external/named.js'),
       );
@@ -97,7 +97,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 3);
     });
 
-    it('should support commonjs output with external modules (named import with same name)', async function() {
+    test('should support commonjs output with external modules (named import with same name)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -116,7 +116,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, true);
     });
 
-    it('should support commonjs output with external modules (namespace import)', async function() {
+    test('should support commonjs output with external modules (namespace import)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -134,7 +134,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 3);
     });
 
-    it('should support commonjs output with external modules (default import)', async function() {
+    test('should support commonjs output with external modules (default import)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -152,7 +152,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 3);
     });
 
-    it('should support commonjs output with external modules (multiple specifiers)', async function() {
+    test('should support commonjs output with external modules (multiple specifiers)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -171,7 +171,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 6);
     });
 
-    it('should support commonjs output with old node without destructuring (single)', async function() {
+    test('should support commonjs output with old node without destructuring (single)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -185,7 +185,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 3);
     });
 
-    it('should support commonjs output with old node without destructuring (multiple single with same name)', async function() {
+    test('should support commonjs output with old node without destructuring (multiple single with same name)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -200,7 +200,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, true);
     });
 
-    it('should support commonjs output with old node without destructuring (multiple)', async function() {
+    test('should support commonjs output with old node without destructuring (multiple)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -216,7 +216,7 @@ describe('output formats', function() {
       assert.equal((await run(b)).bar, 2);
     });
 
-    it('should support commonjs output with old browsers without destructuring (single)', async function() {
+    test('should support commonjs output with old browsers without destructuring (single)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -229,7 +229,7 @@ describe('output formats', function() {
       assert(dist.includes('var add = require("lodash").add'));
     });
 
-    it('should support commonjs output with old node without destructuring (multiple)', async function() {
+    test('should support commonjs output with old node without destructuring (multiple)', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -244,7 +244,7 @@ describe('output formats', function() {
       assert(dist.includes('var subtract = _temp.subtract'));
     });
 
-    it('should support importing sibling bundles in library mode', async function() {
+    test('should support importing sibling bundles in library mode', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-siblings/a.js'),
       );
@@ -257,7 +257,7 @@ describe('output formats', function() {
       assert(dist.includes('require("./index.css")'));
     });
 
-    it('should support async imports', async function() {
+    test('should support async imports', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-async/index.js'),
       );
@@ -277,7 +277,7 @@ describe('output formats', function() {
       assert(async.includes('exports.foo = '));
     });
 
-    it('should support async split bundles', async function() {
+    test('should support async split bundles', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-split/index.js'),
       );
@@ -329,7 +329,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should call init for wrapped modules when codesplitting to to commonjs', async function() {
+    test('should call init for wrapped modules when codesplitting to to commonjs', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -364,7 +364,7 @@ describe('output formats', function() {
       // assert.equal(await run(b), 2);
     });
 
-    it('should support sideEffects: false', async function() {
+    test('should support sideEffects: false', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -380,7 +380,7 @@ describe('output formats', function() {
       assert(dist.includes('exports.test = test;'));
     });
 
-    it('should throw an error on missing export with esmodule input and sideEffects: false', async function() {
+    test('should throw an error on missing export with esmodule input and sideEffects: false', async () => {
       let message = "other.js does not export 'a'";
       let source = path.join(
         __dirname,
@@ -412,7 +412,7 @@ describe('output formats', function() {
       });
     });
 
-    it('should support commonjs input', async function() {
+    test('should support commonjs input', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-dynamic/index.js'),
       );
@@ -424,7 +424,7 @@ describe('output formats', function() {
       assert(dist.includes('Object.assign(exports'));
     });
 
-    it('should support commonjs requires without interop', async function() {
+    test('should support commonjs requires without interop', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-require/index.js'),
       );
@@ -437,8 +437,8 @@ describe('output formats', function() {
     });
   });
 
-  describe('esmodule', function() {
-    it('should support esmodule output (named export)', async function() {
+  describe('esmodule', () => {
+    test('should support esmodule output (named export)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/named.js'),
       );
@@ -449,7 +449,7 @@ describe('output formats', function() {
       assert(dist.includes('export const bar = foo + 3'));
     });
 
-    it('should support esmodule output (default identifier)', async function() {
+    test('should support esmodule output (default identifier)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/default-value.js'),
       );
@@ -459,7 +459,7 @@ describe('output formats', function() {
       assert(dist.includes('export default $'));
     });
 
-    it('should support esmodule output (default function)', async function() {
+    test('should support esmodule output (default function)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/default-function.js'),
       );
@@ -468,7 +468,7 @@ describe('output formats', function() {
       assert(dist.includes('export default function'));
     });
 
-    it('should support esmodule output (multiple)', async function() {
+    test('should support esmodule output (multiple)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/multiple.js'),
       );
@@ -478,7 +478,7 @@ describe('output formats', function() {
       assert(dist.includes('export default'));
     });
 
-    it('should support esmodule output (exporting symbol multiple times)', async function() {
+    test('should support esmodule output (exporting symbol multiple times)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/multiple-times.js'),
       );
@@ -488,7 +488,7 @@ describe('output formats', function() {
       assert(dist.includes('export default other;'));
     });
 
-    it('should support esmodule output (re-export)', async function() {
+    test('should support esmodule output (re-export)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/re-export.js'),
       );
@@ -498,7 +498,7 @@ describe('output formats', function() {
       assert(!dist.includes('export default'));
     });
 
-    it('should support esmodule output (renaming re-export)', async function() {
+    test('should support esmodule output (renaming re-export)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm/re-export-rename.js'),
       );
@@ -508,7 +508,7 @@ describe('output formats', function() {
       assert(!dist.includes('export default'));
     });
 
-    it('should support esmodule output with external modules (named import)', async function() {
+    test('should support esmodule output with external modules (named import)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/named.js'),
       );
@@ -518,7 +518,7 @@ describe('output formats', function() {
       assert(dist.includes('import { add } from "lodash"'));
     });
 
-    it('should support esmodule output with external modules (named import with same name)', async function() {
+    test('should support esmodule output with external modules (named import with same name)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/named-same.js'),
       );
@@ -530,7 +530,7 @@ describe('output formats', function() {
       assert(dist.includes('assign !== _assign'));
     });
 
-    it('should support esmodule output with external modules (namespace import)', async function() {
+    test('should support esmodule output with external modules (namespace import)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/namespace.js'),
       );
@@ -540,7 +540,7 @@ describe('output formats', function() {
       assert(dist.includes('import * as _lodash from "lodash"'));
     });
 
-    it('should support esmodule output with external modules (default import)', async function() {
+    test('should support esmodule output with external modules (default import)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/default.js'),
       );
@@ -550,7 +550,7 @@ describe('output formats', function() {
       assert(dist.includes('import _lodash from "lodash"'));
     });
 
-    it('should support esmodule output with external modules (multiple specifiers)', async function() {
+    test('should support esmodule output with external modules (multiple specifiers)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/multiple.js'),
       );
@@ -561,7 +561,7 @@ describe('output formats', function() {
       assert(dist.includes('import { add } from "lodash"'));
     });
 
-    it('should support esmodule output with external modules (export)', async function() {
+    test('should support esmodule output with external modules (export)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/export.js'),
       );
@@ -571,7 +571,7 @@ describe('output formats', function() {
       assert(dist.includes('export { add }'));
     });
 
-    it('should support esmodule output with external modules (re-export)', async function() {
+    test('should support esmodule output with external modules (re-export)', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-external/re-export.js'),
       );
@@ -581,7 +581,7 @@ describe('output formats', function() {
       assert(dist.includes('export { add }'));
     });
 
-    it('should support importing sibling bundles in library mode', async function() {
+    test('should support importing sibling bundles in library mode', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-siblings/a.js'),
       );
@@ -594,7 +594,7 @@ describe('output formats', function() {
       assert(dist.includes('import "./index.css"'));
     });
 
-    it('should rename imports that conflict with exports', async function() {
+    test('should rename imports that conflict with exports', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-conflict/a.js'),
       );
@@ -604,7 +604,7 @@ describe('output formats', function() {
       assert(dist.includes('export const foo = _foo + 3;'));
     });
 
-    it('should support async imports', async function() {
+    test('should support async imports', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-async/index.js'),
       );
@@ -622,7 +622,7 @@ describe('output formats', function() {
       assert(async.includes('export const foo'));
     });
 
-    it('should throw an error on missing export with esmodule output and sideEffects: false', async function() {
+    test('should throw an error on missing export with esmodule output and sideEffects: false', async () => {
       let message = "b.js does not export 'a'";
       let source = path.join(
         __dirname,
@@ -654,7 +654,7 @@ describe('output formats', function() {
       });
     });
 
-    it('should support async split bundles', async function() {
+    test('should support async split bundles', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-split/index.js'),
       );
@@ -697,7 +697,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should call init for wrapped modules when codesplitting to esmodules', async function() {
+    test('should call init for wrapped modules when codesplitting to esmodules', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-wrap-codesplit/a.js'),
       );
@@ -722,7 +722,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should support async split bundles for workers', async function() {
+    test('should support async split bundles for workers', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -762,7 +762,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should support building esmodules for browser targets', async function() {
+    test('should support building esmodules for browser targets', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-browser/index.html'),
       );
@@ -791,7 +791,7 @@ describe('output formats', function() {
       assert(async.includes('export const foo'));
     });
 
-    it('should support use an import polyfill for older browsers', async function() {
+    test('should support use an import polyfill for older browsers', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-browser/index.html'),
         {
@@ -829,7 +829,7 @@ describe('output formats', function() {
       assert(async.includes('export const foo'));
     });
 
-    it('should support building esmodules with css imports', async function() {
+    test('should support building esmodules with css imports', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/esm-browser-css/index.html'),
       );
@@ -876,7 +876,7 @@ describe('output formats', function() {
       assert(!async.includes('.css"'));
     });
 
-    it('should support building esmodules with split bundles', async function() {
+    test('should support building esmodules with split bundles', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -938,7 +938,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should create correct bundle import for reexports', async function() {
+    test('should create correct bundle import for reexports', async () => {
       let b = await bundle(
         path.join(
           __dirname,
@@ -964,7 +964,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should support generating ESM from CommonJS', async function() {
+    test('should support generating ESM from CommonJS', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-esm/index.js'),
       );
@@ -977,7 +977,7 @@ describe('output formats', function() {
       assert(dist.includes('export default'));
     });
 
-    it('should support re-assigning to module.exports', async function() {
+    test('should support re-assigning to module.exports', async () => {
       let b = await bundle(
         path.join(__dirname, '/integration/formats/commonjs-esm/re-assign.js'),
       );
@@ -994,7 +994,7 @@ describe('output formats', function() {
       );
     });
 
-    it("doesn't support require.resolve calls for excluded assets without commonjs", async function() {
+    test("doesn't support require.resolve calls for excluded assets without commonjs", async () => {
       let message =
         "`require.resolve` calls for excluded assets are only supported with outputFormat: 'commonjs'";
       let source = path.join(
@@ -1028,8 +1028,8 @@ describe('output formats', function() {
     });
   });
 
-  describe('global', function() {
-    it('should support async split bundles for workers', async function() {
+  describe('global', () => {
+    test('should support async split bundles for workers', async () => {
       await bundle(
         path.join(
           __dirname,
@@ -1038,7 +1038,7 @@ describe('output formats', function() {
       );
     });
 
-    it('should throw with external modules', async function() {
+    test('should throw with external modules', async () => {
       let message =
         'External modules are not supported when building for browser';
       let source = 'index.js';

@@ -3,7 +3,7 @@ import path from 'path';
 import {bundle, run, assertBundleTree, outputFS} from '@parcel/test-utils';
 
 describe.skip('glob', function() {
-  it('should require a glob of files', async function() {
+  test('should require a glob of files', async () => {
     let b = await bundle(path.join(__dirname, '/integration/glob/index.js'));
 
     await assertBundleTree(b, {
@@ -21,7 +21,7 @@ describe.skip('glob', function() {
     assert.equal(await output(), 3);
   });
 
-  it('should require nested directories with a glob', async function() {
+  test('should require nested directories with a glob', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/glob-deep/index.js'),
     );
@@ -41,7 +41,7 @@ describe.skip('glob', function() {
     assert.equal(await output(), 13);
   });
 
-  it('should support importing a glob of CSS files', async function() {
+  test('should support importing a glob of CSS files', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/glob-css/index.js'),
     );

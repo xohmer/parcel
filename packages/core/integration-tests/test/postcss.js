@@ -16,7 +16,7 @@ import {
 } from '@parcel/package-manager';
 
 describe('postcss', () => {
-  it('should support transforming css modules with postcss', async () => {
+  test('should support transforming css modules with postcss', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-modules/index.js'),
     );
@@ -44,7 +44,7 @@ describe('postcss', () => {
     assert(css.includes(`.${cssClass}`));
   });
 
-  it('should support transforming with postcss twice with the same result', async () => {
+  test('should support transforming with postcss twice with the same result', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-plugins/index.js'),
     );
@@ -57,7 +57,7 @@ describe('postcss', () => {
     assert.equal(run1(), run2());
   });
 
-  it('should support postcss composes imports', async () => {
+  test('should support postcss composes imports', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-composes/index.js'),
     );
@@ -100,7 +100,7 @@ describe('postcss', () => {
     assert(css.includes(`.${cssClass2}`));
   });
 
-  it('should not include css twice for postcss composes imports', async () => {
+  test('should not include css twice for postcss composes imports', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-composes/index.js'),
     );
@@ -114,7 +114,7 @@ describe('postcss', () => {
     );
   });
 
-  it('should support postcss composes imports for sass', async () => {
+  test('should support postcss composes imports for sass', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-composes/index2.js'),
     );
@@ -142,7 +142,7 @@ describe('postcss', () => {
     assert(css.includes('height: 200px;'));
   });
 
-  it('should support postcss composes imports with custom path names', async () => {
+  test('should support postcss composes imports with custom path names', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-composes/index3.js'),
     );
@@ -170,7 +170,7 @@ describe('postcss', () => {
     assert(css.includes('height: 100px;'));
   });
 
-  it('should support deep nested postcss composes imports', async () => {
+  test('should support deep nested postcss composes imports', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-composes/index4.js'),
     );
@@ -210,7 +210,7 @@ describe('postcss', () => {
     assert(css.indexOf('._test_') < css.indexOf('._intermediate_'));
   });
 
-  it('should support postcss composes imports for multiple selectors', async () => {
+  test('should support postcss composes imports for multiple selectors', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-composes/index5.js'),
     );
@@ -236,7 +236,7 @@ describe('postcss', () => {
     assert(composes6Classes[2].startsWith('_test-2_'));
   });
 
-  it('should automatically install postcss plugins if needed', async () => {
+  test('should automatically install postcss plugins if needed', async () => {
     await outputFS.rimraf(path.join(__dirname, '/input'));
     await ncp(
       path.join(__dirname, '/integration/postcss-autoinstall/npm'),
@@ -281,7 +281,7 @@ describe('postcss', () => {
     // https://stackoverflow.com/questions/15971167/how-to-increase-timeout-for-a-single-test-case-in-mocha
   });
 
-  it('should support using postcss for importing', async function() {
+  test('should support using postcss for importing', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-import/style.css'),
     );
@@ -301,7 +301,7 @@ describe('postcss', () => {
     assert.equal(css.split('red').length - 1, 2);
   });
 
-  it('should support using a postcss config in package.json', async function() {
+  test('should support using a postcss config in package.json', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-config-package/style.css'),
     );
@@ -321,7 +321,7 @@ describe('postcss', () => {
     assert(/background-color:\s*red/.test(css));
   });
 
-  it('Should support postcss.config.js config file', async function() {
+  test('Should support postcss.config.js config file', async () => {
     let b = await bundle(
       path.join(__dirname, '/integration/postcss-js-config/style.css'),
     );
