@@ -24,7 +24,7 @@ export {default as relativeUrl} from './relativeUrl';
 export {default as createDependencyLocation} from './dependency-location';
 export {default as debounce} from './debounce';
 export {default as throttle} from './throttle';
-export {default as openInBrowser} from './openInBrowser';
+// export {default as openInBrowser} from './openInBrowser';
 
 export * from './blob';
 export * from './collection';

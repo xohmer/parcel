@@ -5,7 +5,7 @@ import {BuildError} from '@parcel/core';
 import {NodePackageManager} from '@parcel/package-manager';
 import {NodeFS} from '@parcel/fs';
 import ThrowableDiagnostic from '@parcel/diagnostic';
-import {prettyDiagnostic, openInBrowser} from '@parcel/utils';
+import {prettyDiagnostic /* openInBrowser */} from '@parcel/utils';
 import {INTERNAL_ORIGINAL_CONSOLE} from '@parcel/logger';
 
 require('v8-compile-cache');
@@ -199,13 +199,13 @@ async function run(entries: Array<string>, command: any) {
       }
     });
 
-    if (command.open && options.serve) {
-      await openInBrowser(
-        `${options.serve.https ? 'https' : 'http'}://${options.serve.host ||
-          'localhost'}:${options.serve.port}`,
-        command.open,
-      );
-    }
+    // if (command.open && options.serve) {
+    //   await openInBrowser(
+    //     `${options.serve.https ? 'https' : 'http'}://${options.serve.host ||
+    //       'localhost'}:${options.serve.port}`,
+    //     command.open,
+    //   );
+    // }
 
     let isExiting;
     const exit = async () => {
