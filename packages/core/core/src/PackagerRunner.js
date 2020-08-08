@@ -8,6 +8,8 @@ import type {
   BundleGraph as BundleGraphType,
   NamedBundle as NamedBundleType,
   Async,
+  ConfigOutput,
+  ConfigResult,
 } from '@parcel/types';
 import type SourceMap from '@parcel/source-map';
 import type WorkerFarm, {SharedReference} from '@parcel/workers';
@@ -80,6 +82,7 @@ export default class PackagerRunner {
     configRef: SharedReference,
     cacheKeys: CacheKeyMap,
     optionsRef: SharedReference,
+    config: ConfigResult,
   |}) => Promise<BundleInfo>;
 
   constructor({config, configRef, farm, options, optionsRef, report}: Opts) {
@@ -150,7 +153,26 @@ export default class PackagerRunner {
   |}> {
     let start = Date.now();
 
-    let cacheKey = await this.getCacheKey(bundle, bundleGraph);
+    let {plugin} = await this.config.getPackager(nullthrows(bundle.filePath));
+
+    let config: ?ConfigOutput;
+    if (plugin.loadConfig != null) {
+      try {
+        config = await nullthrows(plugin.loadConfig)({
+          bundle: NamedBundle.get(bundle, bundleGraph, this.options),
+          options: this.pluginOptions,
+          logger: new PluginLogger({origin: this.config.getBundlerName()}),
+        });
+
+        // TODO: add invalidations once packaging is a request
+      } catch (e) {
+        throw new ThrowableDiagnostic({
+          diagnostic: errorToDiagnostic(e, this.config.getBundlerName()),
+        });
+      }
+    }
+
+    let cacheKey = await this.getCacheKey(bundle, bundleGraph, config?.config);
     let cacheKeys = {
       content: getContentKey(cacheKey),
       map: getMapKey(cacheKey),
@@ -164,6 +186,7 @@ export default class PackagerRunner {
         cacheKeys,
         optionsRef: nullthrows(this.optionsRef),
         configRef: nullthrows(this.configRef),
+        config: config?.config,
       }));
 
     return {
@@ -188,8 +211,13 @@ export default class PackagerRunner {
     bundle: InternalBundle,
     bundleGraph: InternalBundleGraph,
     cacheKeys: CacheKeyMap,
+    config: ConfigResult,
   ): Promise<BundleInfo> {
-    let {type, contents, map} = await this.getBundleResult(bundle, bundleGraph);
+    let {type, contents, map} = await this.getBundleResult(
+      bundle,
+      bundleGraph,
+      config,
+    );
 
     return this.writeToCache(cacheKeys, type, contents, map);
   }
@@ -197,6 +225,7 @@ export default class PackagerRunner {
   async getBundleResult(
     bundle: InternalBundle,
     bundleGraph: InternalBundleGraph,
+    config: ConfigResult,
   ): Promise<{|
     type: string,
     contents: Blob,
@@ -204,7 +233,7 @@ export default class PackagerRunner {
   |}> {
     await initSourcemaps;
 
-    let packaged = await this.package(bundle, bundleGraph);
+    let packaged = await this.package(bundle, bundleGraph, config);
     let type = packaged.type ?? bundle.type;
     let res = await this.optimize(
       bundle,
@@ -241,6 +270,7 @@ export default class PackagerRunner {
   async package(
     internalBundle: InternalBundle,
     bundleGraph: InternalBundleGraph,
+    config: ConfigResult,
   ): Promise<BundleResult> {
     let bundle = NamedBundle.get(internalBundle, bundleGraph, this.options);
     this.report({
@@ -249,9 +279,10 @@ export default class PackagerRunner {
       bundle,
     });
 
-    let packager = await this.config.getPackager(bundle.filePath);
+    let {name, plugin} = await this.config.getPackager(bundle.filePath);
     try {
-      return await packager.plugin.package({
+      return await plugin.package({
+        config,
         bundle,
         bundleGraph: new BundleGraph<NamedBundleType>(
           bundleGraph,
@@ -262,7 +293,7 @@ export default class PackagerRunner {
           return this.getSourceMapReference(bundle, map);
         },
         options: this.pluginOptions,
-        logger: new PluginLogger({origin: packager.name}),
+        logger: new PluginLogger({origin: name}),
         getInlineBundleContents: async (
           bundle: BundleType,
           bundleGraph: BundleGraphType<NamedBundleType>,
@@ -284,7 +315,7 @@ export default class PackagerRunner {
       });
     } catch (e) {
       throw new ThrowableDiagnostic({
-        diagnostic: errorToDiagnostic(e, packager.name),
+        diagnostic: errorToDiagnostic(e, name),
       });
     }
   }
@@ -413,6 +444,7 @@ export default class PackagerRunner {
   async getCacheKey(
     bundle: InternalBundle,
     bundleGraph: InternalBundleGraph,
+    configResult: ?ConfigResult,
   ): Promise<string> {
     let filePath = nullthrows(bundle.filePath);
     // TODO: include packagers and optimizers used in inline bundles as well
@@ -429,6 +461,7 @@ export default class PackagerRunner {
       optimizers,
       opts: {sourceMaps},
       hash: bundleGraph.getHash(bundle),
+      configResult,
     });
   }
 
